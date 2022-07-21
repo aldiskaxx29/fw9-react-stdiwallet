@@ -31,7 +31,7 @@ const Landingpage = () => {
           <p className="awesome-title" >Awesome App For Saving <span className="awesome-title-span">Time.</span></p>
           <p className="awesome-desc"> We bring you a mobile app for banking problems that oftenly wasting much of your times.</p>
           <a href="/signUp.html" className="tryIt">Try It Free</a><br/><br/>
-          <img src={download}alt="download"/>
+          <img className='img-download' src={download}alt="download"/>
         </div>
       </div>
     </div>
@@ -46,19 +46,19 @@ const Landingpage = () => {
             <p className="about-desc">We have some great features from the application and it's totally free to use by all users around the world.</p>
             <div className="card-wrap">
                 <div>
-                    <img src={icon1} alt=""/>
+                    <img className='img-card' src={icon1} alt=""/>
                     <p className="card-title">24/7 Support</p>
                     <p className="textCard">We have 24/7 contact support so you can contact us whenever you want and we will respond it.</p>
                 </div>
                 <div className="cardItems">
-                    <img src={icon2} alt=""/>
+                    <img className='img-card' src={icon2} alt=""/>
                     <p className="card-title" >Data Privacy</p>
                     <p className="textCard">We make sure your data is safe in our database and we will encrypt any data you submitted to us.</p>
                 </div>
                 <div>
-                    <img src={icon3} alt=""/>
+                    <img className='img-card' src={icon3} alt=""/>
                     <p className="card-title" >Easy Download</p>
-                    <p className="textCard">Zwallet is 100% totally free to use it's now available on Google Play Store and App Store. </p>
+                    <p className="textCard">STD iWallet is 100% totally free to use it's now available on Google Play Store and App Store. </p>
                 </div>
             </div>
         </div>
@@ -70,20 +70,20 @@ const Landingpage = () => {
             <img src={phone2} className='awesome-phone' alt='imagesphone'/>
           </div>
           <div className='awesome-list'>
-            <p className="awesome-title">All The <span className='awesome-title-span'>Great</span> <br/> Zwallet Features.</p>
-            <p className="awesome-desc color-point">1. <span className="point">Small Fee</span></p>
+            <p className="awesome-title">All The <span className='awesome-title-span'>Great</span> <br/> STD iWallet Features.</p>
+            <p className="color-point">1. <span className="point">Small Fee</span></p>
             <p className="desc-list" >We only charge 5% of every success transaction done in Zwallet app</p>
-            <p className="awesome-desc color-point">2. <span className="point">Data Secured</span></p>
+            <p className="color-point">2. <span className="point">Data Secured</span></p>
             <p className="desc-list" >All your data is secured properly in our system and it’s encrypted.</p>    
-            <p className="awesome-desc color-point">3. <span className="point">User Friendly</span></p>
-            <p className="desc-list" >Zwallet come up with modern and sleek design and not complicate.</p>
+            <p className="color-point">3. <span className="point">User Friendly</span></p>
+            <p className="desc-list" >STD iWallet come up with modern and sleek design and not complicate.</p>
           </div>
         </div>
     </div>
     <div>
       <div className='saying'>
       <p className="awesome-title" >What Users are <span className='awesome-title-span'>Saying.</span></p>
-            <p className="awesome-desc">We have some great features from the application and it’s totally free <br/> to use by all users around the world.</p>
+            <p className="saying-desc">We have some great features from the application and it’s totally free to use by all users around the world.</p>
             <div className="saying-nav">
                 <h1><FiArrowLeft/></h1>
                 <div className="saying-card">
@@ -102,8 +102,8 @@ const Landingpage = () => {
             <p className="footer-desc">Simplify financial needs and saving <br/>much time in banking needs with <br/>one single app.</p>
             <hr className="footer-hr" />
             <div className="footer-end">
-                <p>2022 Stdiwallet. All right reserved.</p>
-                <div className="footer-contact">
+                <p className='footer-text-end'>2022 Stdiwallet. All right reserved.</p>
+                <div className="footer-contact footer-text-end">
                     <p className="footer-num">+62 5637 8882 9901</p>
                     <p>contact@stdiwallet.com</p>
                 </div>

@@ -191,6 +191,16 @@
     text-align: center;
 }
 
+.color-point{
+    font-family: Nunito Sans;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 31px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #6379F4;
+}
+
 .point{
     font-family: 'Nunito Sans';
     font-style: normal;
@@ -342,6 +352,7 @@ a {
 
     .footer-num{
         margin-right: 0px;
+        margin-bottom: 0px;
     }
 
     .awesome-list{
@@ -354,9 +365,11 @@ a {
         padding: 33px 10px 30px 10px;
         display: flex;
         justify-content: space-between;
+        flex-direction: column;
     }
 
     .togle{
+        text-align: center;
         font-family: 'Nunito Sans';
         font-style: normal;
         font-weight: 700;
@@ -366,10 +379,23 @@ a {
         flex-direction: column;
     }
     
+    .login {
+        margin-bottom: 10px;
+        color: #6379F4;
+        background: #FFFFFF;
+        border: 2px solid #6379F4;
+        box-shadow: 0px 6px 75px rgb(100 87 87 / 5%);
+        border-radius: 12px;
+        padding: 12px 37px 12px 36px;
+        width: 100%;
+        height: 48px;
+        box-sizing: border-box;
+    }
+
     .signUp{
         margin-left: 0px;
         box-sizing: border-box;
-        width: 120px;
+        width: 100%;
         height: 48px;
         padding: 12px 27px 12px 26px;
         background: #6379F4;
@@ -381,6 +407,10 @@ a {
         display: none;
     }
 
+    .awesome-text {
+        margin-top: 50px;
+    }
+
     .awesome{
         padding: 15px 10px 100px 10px;
         display: flex;
@@ -389,12 +419,76 @@ a {
         position: relative;
     }
 
+    .tryIt {
+        background: #6379F4;
+        box-shadow: 0px 6px 75px rgb(100 87 87 / 5%);
+        border-radius: 12px;
+        box-sizing: border-box;
+        width: 83px;
+        height: 57px;
+        padding: 8px 20px 8px 20px;
+        color: #FFFFFF;
+        text-align: center;
+        font-family: 'Nunito Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 20px;
+    }
+
+    .img-download{
+        width: 70px;
+        height: auto;
+    }
+
     .awesome-title{
         font-family: 'Nunito Sans';
         font-style: normal;
         font-weight: 800;
-        font-size: 40px;
-        line-height: 37px;
+        font-size: 30px;
+        line-height: 45px;
+    }
+
+    .awesome-desc {
+        padding-bottom: 10px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .about-desc {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .img-card{
+        width: 60px;
+        height: auto;
+    }
+
+    .card-title {
+        margin-bottom: 10px;
+        font-size: 18px;
+        line-height: 15px;
+    }
+
+    .textCard {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .color-point{
+        font-size: 16px;
+        line-height: 16px;
+    }
+
+    .point {
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+    .desc-list {
+        font-size: 12px;
+        line-height: 15px;
     }
 
     .img-corp{
@@ -439,6 +533,21 @@ a {
         text-align: center;
     }
 
+    .saying-title {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .saying-work {
+        font-size: 13px;
+        line-height: 16px;
+    }
+
+    .saying-desc {
+        font-size: 12px;
+        line-height: 16px;
+    }
+
     .saying-card{
         background: #FFFFFF;
         box-shadow: 0px 5px 70px rgba(197, 197, 197, 0.15) !important;
@@ -453,6 +562,10 @@ a {
         display:flex; 
         flex-direction: column;
         justify-content: flex-end;
+    }
+
+    .footer-text-end{
+        font-size: 12px;
     }
 
 }
