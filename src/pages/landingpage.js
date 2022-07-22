@@ -6,6 +6,7 @@ import corp from '../assets/images/Group 51.png'
 import icon1 from "../assets/images/Group 10.png"
 import icon2 from "../assets/images/Group 11.png"
 import icon3 from "../assets/images/Group 12.png"
+import {Link} from "react-router-dom"
 import{FiArrowLeft,FiArrowRight} from "react-icons/fi";
 import '../assets/css/lpV2.css';
 
@@ -16,8 +17,8 @@ const Landingpage = () => {
       <div className="header">
           <p className="title">STD iWallet</p>
           <div className="togle">
-              <a href="/login.html" className="login">Login</a>
-              <a href="/signUp.html" className="signUp">Sign Up</a>
+              <Link to="/login" className="login">Login</Link>
+              <Link to="/signUp" className="signUp">Sign Up</Link>
           </div>
       </div>
     </div>
@@ -30,7 +31,7 @@ const Landingpage = () => {
         <div className='awesome-text'>
           <p className="awesome-title" >Awesome App For Saving <span className="awesome-title-span">Time.</span></p>
           <p className="awesome-desc"> We bring you a mobile app for banking problems that oftenly wasting much of your times.</p>
-          <a href="/signUp.html" className="tryIt">Try It Free</a><br/><br/>
+          <Link to="/signUp" className="tryIt">Try It Free</Link><br/><br/>
           <img className='img-download' src={download}alt="download"/>
         </div>
       </div>
