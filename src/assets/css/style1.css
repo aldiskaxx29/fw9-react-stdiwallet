@@ -82,7 +82,9 @@ body{
 }
 
 .auth-button{
+    color: #ffffff !important;
     height: 57px;
+    min-width: 170px;
     margin-top: 5rem;
     border-radius: 12px;
     background: #395B64 !important;
