@@ -1,13 +1,20 @@
 import React from "react";
 import {Route,Routes,BrowserRouter} from 'react-router-dom';
-import Header from "./component/Headers";
 import CreatePin from "./pages/CreatePin";
 import CreatePinSuccess from "./pages/CreatePinSuccess";
 import ForgotPassword from "./pages/ForgotPassword";
 import ForgotPasswordInsert from "./pages/ForgotPasswordInsert";
+import { Home } from "./pages/Home";
 import Landingpage from "./pages/Landingpage";
 import  Login  from "./pages/Login";
+import { Profile } from "./pages/Profile";
 import SignUp from "./pages/SignUp";
+import { StatusFailed } from "./pages/StatusFailed";
+import { StatusSuccess } from "./pages/StatusSuccess";
+import { TopUp } from "./pages/TopUp";
+import { Transfer } from "./pages/Transfer";
+import { TransferInput } from "./pages/TransferInput";
+import { TransferPinConfirm } from "./pages/TransferPinConfirm";
 
 const App = () => {
   return (
@@ -20,7 +27,14 @@ const App = () => {
         <Route path="createPinSuccess" element={<CreatePinSuccess/>}/>
         <Route path="forgotPassword" element={<ForgotPassword/>}/>
         <Route path="forgotPasswordInsert" element={<ForgotPasswordInsert/>}/>
-        <Route path="home" element={<Header/>}/>
+        <Route path="home" element={<Home/>}/>
+        <Route path="transfer" element={<Transfer/>}/>
+        <Route path="topUp" element={<TopUp/>}/>
+        <Route path="profile" element={<Profile/>}/>
+        <Route path="transferInput" element={<TransferInput/>}/>
+        <Route path="pinConfirm" element={<TransferPinConfirm/>}/>
+        <Route path="statusSuccess" element={<StatusSuccess/>}/>
+        <Route path="statusFailed" element={<StatusFailed/>}/>
       </Routes>
     </BrowserRouter>
   );
