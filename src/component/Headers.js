@@ -29,10 +29,10 @@ const Header = () => {
                         <div className="d-flex-column wrap-receiver p-3 m-1">
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
-                                    <FiArrowDown className="money-in"/>
+                                    <FiArrowDown className="money-in navboard-icons"/>
                                     <div className="d-flex-column justify-content-center ms-3">
                                         <p className="wrap-name">Transfered from Joshua Lee</p>
-                                        <p  className="wrap-amount">Rp220.000</p>
+                                        <p  className="wrap-amount-headers">Rp220.000</p>
                                     </div>
                                 </div>
                             </div>
@@ -42,10 +42,10 @@ const Header = () => {
                         <div className="d-flex wrap-receiver p-3 m-1">
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
-                                    <FiArrowUp className="money-out"/>
+                                    <FiArrowUp className="money-out navboard-icons"/>
                                     <div className="d-flex-column justify-content-center ms-3">
                                         <p className="wrap-name">Netflix subscription</p>
-                                        <p  className="wrap-amount">Rp149.000</p>
+                                        <p  className="wrap-amount-headers">Rp149.000</p>
                                     </div>
                                 </div>
                             </div>
@@ -56,10 +56,10 @@ const Header = () => {
                         <div className="d-flex-column wrap-receiver p-3 m-1">
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
-                                    <FiArrowUp className="money-out"/>
+                                    <FiArrowUp className="money-out navboard-icons"/>
                                     <div className="d-flex-column justify-content-center ms-3">
                                         <p className="wrap-name">Transfer to Jessica Lee</p>
-                                        <p  className="wrap-amount">Rp100.000</p>
+                                        <p  className="wrap-amount-headers">Rp100.000</p>
                                     </div>
                                 </div>
                             </div>
@@ -69,10 +69,10 @@ const Header = () => {
                         <div className="d-flex-column wrap-receiver p-3 m-1">
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
-                                    <FiArrowDown className="money-in"/>
+                                    <FiArrowDown className="money-in navboard-icons"/>
                                     <div className="d-flex-column justify-content-center ms-3">
                                         <p className="wrap-name">Top up from BNI E-Banking</p>
-                                        <p  className="wrap-amount">Rp300.000</p>
+                                        <p  className="wrap-amount-headers">Rp300.000</p>
                                     </div>
                                 </div>
                             </div>
