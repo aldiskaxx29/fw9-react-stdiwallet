@@ -15,6 +15,7 @@ body{
 }
 
 .auth-title{
+    color: #ffffff !important;
     font-style: normal;
     font-weight: 700;
     font-size: 29px;
@@ -62,7 +63,7 @@ body{
 .auth-form:focus{
     box-shadow: unset !important;
     outline: none !important;
-    border-color: #395B64;
+    border-bottom: 2px solid #395B64 !important;
 }
 
 .auth-h1form{
@@ -111,6 +112,7 @@ body{
 }
 
 .auth-pin{ 
+    padding: 0px !important;
     color: #a9a9a9;
     background: unset !important;
     text-align: center;
@@ -129,10 +131,26 @@ body{
 .auth-pin:focus{
     box-shadow: unset !important;
     outline: none !important;
-    border-color: #395B64;
+    border-bottom: 1.5px solid #395B64 !important;
 }
 
 @media (max-width: 767.98px) { 
+    .auth-h1form {
+        font-style: normal!important;
+        font-weight: 700!important;
+        font-size: 18px!important;
+        line-height: 23px!important;
+        color: #3A3D42!important;
+    }
+
+    .auth-text-form {
+        font-style: normal!important;
+        font-weight: 400!important;
+        font-size: 12px!important;
+        line-height: 15px!important;
+        color: #3A3D4299;
+    }
+
     .auth-form {
         color: #a9a9a9;
         font-size: 16px;
@@ -150,6 +168,7 @@ body{
     }
 
     .auth-title{
+        color: #ffffff !important;
         font-style: normal;
         font-weight: 700;
         font-size: 20px;
