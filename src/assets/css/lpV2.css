@@ -26,9 +26,9 @@
 
 .login{
     margin-bottom: 10px;
-    color: #6379F4;
-    background: #FFFFFF;
-    border: 2px solid #6379F4;
+    color: #395B64;
+    background: #A5C9CA;
+    border: 2px solid #395B64;
     box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
     border-radius: 12px;
     padding: 12px 37px 12px 36px;
@@ -37,18 +37,27 @@
     box-sizing: border-box;
 }
 
+.login:hover{
+    color: #A5C9CA !important;
+    background: #395B64 !important;
+}
+
 .signUp{
-    color: #FFFFFF;
+    color: #A5C9CA !important;
     margin-left: 30px;
     box-sizing: border-box;
     width: 120px;
     height: 48px;
     padding: 12px 27px 12px 26px;
-    background: #6379F4;
+    background: #395B64;
     box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
     border-radius: 12px;
 }
 
+.signUp:hover{
+    color: #395B64 !important;
+    background: #A5C9CA !important;
+}
 .awesome{
     padding: 15px 150px 100px 150px;
     display: flex;
@@ -78,7 +87,7 @@
 }
 
 .awesome-title-span{
-    color: #6379F4;
+    color: #395B64;
 }
 
 .awesome-desc{
@@ -90,14 +99,14 @@
 }
 
 .tryIt{
-    background: #6379F4;
+    background: #395B64;
     box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
     border-radius: 12px;
     box-sizing: border-box;
     width: 173px;
     height: 57px;
     padding: 16px 40px 16px 40px;
-    color: #FFFFFF;
+    color: #A5C9CA !important;
     text-align: center;
     font-family: 'Nunito Sans'; 
     font-style: normal;
@@ -107,8 +116,8 @@
 }
 
 .tryIt:hover{
-    background: #c9d0f8;
-    color: #a09e9e;
+    background:#A5C9CA !important;;
+    color: #395B64 !important;
 }
 
 .img-corp{
@@ -198,7 +207,7 @@
     line-height: 31px;
     letter-spacing: 0em;
     text-align: left;
-    color: #6379F4;
+    color: #395B64;
 }
 
 .point{
@@ -234,7 +243,7 @@
 .footer{
     color: rgba(239, 239, 239, 0.75);
     padding: 80px 150px 80px 150px;
-    background-color: #6379F4;
+    background-color: #395B64;
 }
 
 .img-arrow{
@@ -337,7 +346,7 @@ a {
     .footer{
         color: rgba(239, 239, 239, 0.75);
         padding: 20px 10px 20px 10px;
-        background-color: #6379F4;
+        background-color: #395B64;
     }
 
     .footer-title {
@@ -381,9 +390,9 @@ a {
     
     .login {
         margin-bottom: 10px;
-        color: #6379F4;
+        color: #395B64;
         background: #FFFFFF;
-        border: 2px solid #6379F4;
+        border: 2px solid #395B64;
         box-shadow: 0px 6px 75px rgb(100 87 87 / 5%);
         border-radius: 12px;
         padding: 12px 37px 12px 36px;
@@ -398,7 +407,7 @@ a {
         width: 100%;
         height: 48px;
         padding: 12px 27px 12px 26px;
-        background: #6379F4;
+        background: #395B64;
         box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
         border-radius: 12px;
     }
@@ -420,7 +429,7 @@ a {
     }
 
     .tryIt {
-        background: #6379F4;
+        background: #395B64;
         box-shadow: 0px 6px 75px rgb(100 87 87 / 5%);
         border-radius: 12px;
         box-sizing: border-box;
