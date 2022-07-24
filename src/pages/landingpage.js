@@ -6,13 +6,19 @@ import corp from '../assets/images/Group 51.png'
 import icon1 from "../assets/images/Group 10.png"
 import icon2 from "../assets/images/Group 11.png"
 import icon3 from "../assets/images/Group 12.png"
+import kribo from "../assets/images/kribo.png"
 import {Link} from "react-router-dom"
 import{FiArrowLeft,FiArrowRight} from "react-icons/fi";
 import '../assets/css/lpV2.css';
+import { Helmet } from 'react-helmet'
 
 const Landingpage = () => {
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>STD iWallet</title>
+    </Helmet>
     <div>
       <div className="header">
           <p className="title">STD iWallet</p>
@@ -88,7 +94,7 @@ const Landingpage = () => {
             <div className="saying-nav">
                 <h1><FiArrowLeft/></h1>
                 <div className="saying-card">
-                    <img src="/assets/image/kribo.png" alt=""/>
+                    <img src={kribo} className="lp-image" alt="Alex"/>
                     <p className="saying-title">Alex Hansinburg</p>
                     <p className="saying-work">Designer</p>
                     <p className="saying-desc">“This is the most outstanding app that I’ve ever try in my live, this app is such an amazing masterpiece and it’s suitable for you who is bussy with their bussiness and must transfer money to another person aut there. Just try this app and see the power!”</p>

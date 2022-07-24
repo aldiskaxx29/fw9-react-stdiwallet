@@ -5,10 +5,15 @@ import { Footer } from '../component/Footer'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
 import samuel from '../assets/images/samuel.png'
+import { Helmet } from 'react-helmet'
 
 const MyModal = (props) => {
     return(
         <>
+        <Helmet>
+            <meta charSet="utf-8" />
+            <title>Transfer</title>
+        </Helmet>
             <Modal {...props} aria-labelledby="modal-pin" centered>
             <Modal.Header closeButton>
                 <Modal.Title id="modal-pin">

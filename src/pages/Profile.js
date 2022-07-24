@@ -6,10 +6,15 @@ import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
 import profile from '../assets/images/Rectangle 25.png'
 import { FiArrowRight, FiEdit2 } from 'react-icons/fi'
+import { Helmet } from 'react-helmet'
 
 export const Profile = () => {
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>Profile</title>
+    </Helmet>
     <Header/>
     <section className='wrap-section'>
         <Row className='px-2 px-md-5 mx-md-5'>

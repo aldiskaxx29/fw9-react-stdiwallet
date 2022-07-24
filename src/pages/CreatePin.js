@@ -2,10 +2,15 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import React from 'react'
 import Auth from "../component/Auth"
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const CreatePin = () => {
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>Create Pin</title>
+    </Helmet>
     <Row className="mw-100 mh-100 mx-0">
       <Auth/>
       <Col md={5} className='p-4 p-md-5'>

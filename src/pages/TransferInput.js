@@ -6,11 +6,16 @@ import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
 import samuel from '../assets/images/samuel.png'
 import { FiEdit2 } from 'react-icons/fi'
+import { Helmet } from 'react-helmet'
 
 
 export const TransferInput = () => {
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>Transfer</title>
+    </Helmet>
     <Header/>
         <section className='wrap-section'>
             <Row className='px-2 px-md-5 mx-md-5'>

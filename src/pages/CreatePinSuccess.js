@@ -3,10 +3,15 @@ import React from 'react'
 import Auth from "../component/Auth"
 import { Link } from "react-router-dom";
 import success from "../assets/images/success.png"
+import { Helmet } from "react-helmet";
 
 const CreatePinSuccess = () => {
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>Pin Created</title>
+    </Helmet>
     <Row className="mw-100 mh-100 mx-0">
       <Auth/>
       <Col md={5} className='p-4 p-md-5'>

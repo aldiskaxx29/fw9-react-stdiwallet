@@ -5,10 +5,15 @@ import { Row,Col } from 'react-bootstrap'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
 import { FiTrash } from 'react-icons/fi'
+import { Helmet } from 'react-helmet'
 
 export const ManagePhone = () => {
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>Manage Number</title>
+    </Helmet>
     <Header/>
     <section className='wrap-section'>
         <Row className='px-2 px-md-5 mx-md-5'>

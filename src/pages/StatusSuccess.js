@@ -7,10 +7,15 @@ import NavBoard from '../component/NavBoard'
 import samuel from '../assets/images/samuel.png'
 import success from '../assets/images/success.png'
 import { FiDownload, FiShare2 } from 'react-icons/fi'
+import { Helmet } from 'react-helmet'
 
 export const StatusSuccess = () => {
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>Success</title>
+    </Helmet>
         <Header/>
         <section className='wrap-section'>
             <Row className='px-2 px-md-5 mx-md-5'>

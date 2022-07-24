@@ -4,10 +4,15 @@ import { Footer } from '../component/Footer'
 import { Row,Col } from 'react-bootstrap'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
+import { Helmet } from 'react-helmet'
 
 export const PersonalInfo = () => {
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>Personal Info</title>
+    </Helmet>
     <Header/>
     <section className='wrap-section'>
         <Row className='px-2 px-md-5 mx-md-5'>

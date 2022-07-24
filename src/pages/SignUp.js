@@ -3,10 +3,61 @@ import { FiMail,FiLock,FiUser } from "react-icons/fi";
 import React from 'react'
 import Auth from "../component/Auth"
 import { Link } from "react-router-dom";
+import { Formik } from "formik";
+import * as Yup from 'yup'
+import { Helmet } from "react-helmet";
+
+const signupSchema = Yup.object().shape({
+    username: Yup.string().min(4).required('Required'),
+    email: Yup.string().email('Invalid email address format').required('Required'),
+    password: Yup.string().min(4).required('Required')
+})
+
+const AuthSignUp = ({errors,handleChange,handleSubmit}) => {
+    const lock = errors.email===undefined&&errors.password===undefined&&errors.username===undefined
+    return(
+        <>
+            <Form onSubmit={handleSubmit}>
+                <Form.Group className="d-flex mt-5">
+                    <span className="auth-form"> <FiUser/> </span>
+                    <div className="d-flex-column w-100">
+                    <Form.Control name="username" onChange={handleChange} className="auth-form" type="text" placeholder="Enter Your Username" isInvalid={!!errors.username}/>
+                    <Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>
+                    </div>
+                </Form.Group>
+
+                <Form.Group className="d-flex mt-5">
+                    <span className="auth-form"> <FiMail/> </span>
+                    <div className="d-flex-column w-100">
+                        <Form.Control name="email" onChange={handleChange} className="auth-form" type="email" placeholder="Enter Your Email" isInvalid={!!errors.email}/>
+                        <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+                    </div>
+                </Form.Group>
+
+                <Form.Group className="d-flex mt-5">
+                    <span className="auth-form"> <FiLock/> </span>
+                    <div className="d-flex-column w-100">
+                        <Form.Control name="password" onChange={handleChange} className="auth-form" type="password" placeholder="Enter Your Password" isInvalid={!!errors.password}/>
+                        <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+                    </div>
+                </Form.Group>
+            <div>
+                <Link to="/createPin">
+                    <Button disabled={!lock} className="btn-primary auth-button w-100 mt-5" type="submit">Sign Up</Button>
+                </Link>
+            </div>
+            </Form>
+        </>
+    )
+}
 
 const SignUp = () => {
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>SignUp</title>
+    </Helmet>
     <Row className="mw-100 mh-100 mx-0">
       <Auth/>
       <Col md={5} className='p-4 p-md-5'>
@@ -17,27 +68,10 @@ const SignUp = () => {
                 <div>
                     <p className="auth-text-form mt-5">Transfering money is eassier than ever, you can access STD iWallet wherever you are. Desktop, laptop, mobile phone? we cover all of that for you!</p>
                 </div>
-                <Form>
-                    <Form.Group className="d-flex mt-5">
-                        <span className="auth-form"> <FiUser/> </span>
-                        <Form.Control className="auth-form" type="text" placeholder="Enter Your Username"/>
-                    </Form.Group>
+                <Formik validationSchema={signupSchema} initialValues={{username:'',email:'',password:''}}>
+                    {(props)=><AuthSignUp{...props}/>}
+                </Formik>
 
-                    <Form.Group className="d-flex mt-5">
-                        <span className="auth-form"> <FiMail/> </span>
-                        <Form.Control className="auth-form" type="email" placeholder="Enter Your Email"/>
-                    </Form.Group>
-
-                    <Form.Group className="d-flex mt-5">
-                        <span className="auth-form"> <FiLock/> </span>
-                        <Form.Control className="auth-form" type="password" placeholder="Enter Your Password"/>
-                    </Form.Group>
-                </Form>
-                <div>
-                    <Link to="/createPin">
-                        <Button className="btn-primary auth-button w-100 mt-5" type="submit">Sign Up</Button>
-                    </Link>
-                </div>
                 <div className="text-center">
                     <p className="mt-5">Don’t have an account? Let’s <Link to="/login">Log in</Link></p>
                 </div>

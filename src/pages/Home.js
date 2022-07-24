@@ -10,10 +10,15 @@ import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
 import { Footer } from '../component/Footer'
 import {Link} from 'react-router-dom';
+import { Helmet } from 'react-helmet'
 
 export const Home = () => {
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>Home</title>
+    </Helmet>
     <Header/>
     <section className='wrap-section'>
         <Row className='px-2 px-md-5 mx-md-5'>

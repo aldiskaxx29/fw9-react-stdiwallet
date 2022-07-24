@@ -5,10 +5,15 @@ import { Row,Col, Form, Button } from 'react-bootstrap'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
 import { FiPhone } from 'react-icons/fi'
+import { Helmet } from 'react-helmet'
 
 export const AddNumber = () => {
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>Add Number</title>
+    </Helmet>
     <Header/>
     <section className='wrap-section'>
         <Row className='px-2 px-md-5 mx-md-5'>
@@ -21,7 +26,7 @@ export const AddNumber = () => {
                     <Form >
                         <Form.Group className="d-flex mt-5">
                             <span className="auth-form"> <FiPhone/> </span>
-                            <Form.Control className="auth-form" type="password" placeholder="Current Password"/>
+                            <Form.Control className="auth-form" type="text" placeholder="Type Your Number"/>
                         </Form.Group>
                     </Form>
                     </div>

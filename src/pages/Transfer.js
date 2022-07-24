@@ -9,10 +9,15 @@ import michel from '../assets/images/Rectangle 25.png'
 import samuel from '../assets/images/samuel.png'
 import momotaro from '../assets/images/momotaro.png'
 import jessica from '../assets/images/jessica.png'
+import { Helmet } from 'react-helmet'
 
 export const Transfer = () => {
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>Transfer</title>
+    </Helmet>
     <Header/>
         <section className='wrap-section'>
             <Row className='px-2 px-md-5 mx-md-5'>

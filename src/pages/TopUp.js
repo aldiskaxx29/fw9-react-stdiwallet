@@ -1,5 +1,6 @@
 import React from 'react'
 import {Col, Row } from 'react-bootstrap'
+import { Helmet } from 'react-helmet'
 import { Footer } from '../component/Footer'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
@@ -7,6 +8,10 @@ import NavBoard from '../component/NavBoard'
 export const TopUp = () => {
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>Top Up</title>
+    </Helmet>
     <Header/>
         <section className='wrap-section'>
             <Row className='px-2 px-md-5 mx-md-5'>
