@@ -19,6 +19,7 @@ export const StatusFailed = () => {
                         <div className='w-100 text-center my-5'>
                             <img src={failed} alt='failed'/>
                             <p className="wrap-status-transfer my-5">Transfer Failed</p>
+                            <p className='wrap-text'>We can’t transfer your money at the moment, we recommend you to check your internet connection and try again.</p>
                         </div>
                         <div className="d-flex-column wrap-receiver p-3 my-3">
                             <div className="d-flex justify-content-between align-items-center">

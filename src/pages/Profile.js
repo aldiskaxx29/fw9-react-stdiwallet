@@ -23,24 +23,20 @@ export const Profile = () => {
                         <p className="mx-5 wrap-text">+62 813-9387-7946</p>
                     </div>
                         <div className="d-flex-column wrap-receiver p-3 my-3 mx-auto wrap-profile-list">
-                            <Link to='personalInfo' className="d-flex justify-content-between align-items-center">
+                            <Link to='/personalInfo' className="d-flex justify-content-between align-items-center">
                                     <div className="d-flex justify-content-between ms-3">
-                                      <a href="/personalInfo.html">
                                         <p  className="history-name mb-1">Personal Information</p>
-                                      </a>
                                     </div>
                                         <FiArrowRight className='navboard-icons'/>
                             </Link>
                         </div>
                         <div className="d-flex-column wrap-receiver p-3 my-3 mx-auto wrap-profile-list ">
-                            <className to='/changePassword' className="d-flex justify-content-between align-items-center">
+                            <Link to='/changePassword' className="d-flex justify-content-between align-items-center">
                                     <div className="d-flex justify-content-between ms-3">
-                                      <a href="/changePassword.html">
                                         <p  className="history-name mb-1">Change Password</p>
-                                      </a>
                                     </div>
                                         <FiArrowRight className='navboard-icons'/>
-                            </className>
+                            </Link>
                         </div>
                         <div className="d-flex-column wrap-receiver p-3 my-3 mx-auto wrap-profile-list">
                             <Link to='/changePin' className="d-flex justify-content-between align-items-center">
