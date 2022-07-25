@@ -8,6 +8,7 @@ import CreatePin from "./pages/CreatePin";
 import CreatePinSuccess from "./pages/CreatePinSuccess";
 import ForgotPassword from "./pages/ForgotPassword";
 import ForgotPasswordInsert from "./pages/ForgotPasswordInsert";
+import { History } from "./pages/History";
 import { Home } from "./pages/Home";
 import Landingpage from "./pages/Landingpage";
 import  Login  from "./pages/Login";
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="forgotPassword" element={<ForgotPassword/>}/>
         <Route path="forgotPasswordInsert" element={<ForgotPasswordInsert/>}/>
         <Route path="home" element={<Home/>}/>
+        <Route path="history" element={<History/>}/>
         <Route path="transfer" element={<Transfer/>}/>
         <Route path="topUp" element={<TopUp/>}/>
         <Route path="profile" element={<Profile/>}/>
