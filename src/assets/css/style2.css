@@ -595,7 +595,21 @@ a:hover {
     width: 50%;
 }
 
+body.modal-open{
+    overflow: hidden;
+    padding:0px !important;
+}
+
 @media (max-width: 767.98px) {
+
+    .modal-body {
+        max-width: 350px!important;
+    }
+
+    .modal-footer{
+        padding: 0px !important;
+    }
+
     .wrap-dashboard{
         min-height: 20px;
     }

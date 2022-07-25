@@ -14,14 +14,14 @@ const MyModal = (props) => {
             <meta charSet="utf-8" />
             <title>Transfer</title>
         </Helmet>
-            <Modal {...props} aria-labelledby="modal-pin" centered>
+            <Modal {...props} aria-labelledby="modal-pin" centered className='mx-auto'>
             <Modal.Header closeButton>
-                <Modal.Title id="modal-pin">
+                <Modal.Title id="modal-pin" className='wrap-title'>
                 Enter Pin to Transfer
                 </Modal.Title>
             </Modal.Header>
                 <Modal.Body>
-                <p>Enter your 6 digits PIN for confirmation to continue transferring money.</p>
+                <p className='wrap-text'>Enter your 6 digits PIN for confirmation to continue transferring money.</p>
                 <Form className="d-flex flex-rows justify-content-around wrapper-pin mw-100 gap-2 mt-5">
                     <div className="d-flex auth-border-pin">
                         <Form.Control maxlength="1" min="0" max="9" className="auth-pin" type="number"/>
