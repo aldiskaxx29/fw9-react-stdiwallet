@@ -119,9 +119,9 @@ export const History = () => {
                             <p className="wrap-text mt-2 mt-md-3 mb-3 mb-md-5">This Week</p>
                             {transaction.result&&transaction.result.map((val)=>{
                                 return(
-                                <>
+                                <React.Fragment key={val.id}>
                                 <Construct name={val.receiver_id!==67?val.receiver_id:val.notes} transaction={val.transfertype} amount={val.amount} sender={val.sender_id}/>
-                                </>
+                                </React.Fragment>
                                 )
                             })}
                         </div>
