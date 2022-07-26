@@ -600,6 +600,19 @@ body.modal-open{
     padding:0px !important;
 }
 
+.button-download:hover{
+    color: #E7F6F2 !important;
+
+    background: #395B64 !important;
+    box-shadow: 0px 6px 75px rgb(100 87 87 / 5%);
+}
+
+.button-share:hover{
+    color: #E7F6F2 !important;
+    background: #395B64 !important;
+    box-shadow: 0px 6px 75px rgb(100 87 87 / 5%);
+}
+
 @media (max-width: 767.98px) {
 
     .modal-body {
@@ -818,7 +831,7 @@ body.modal-open{
     }
 
     .auth-button {
-        color: #ffffff !important;
+        color: #E7F6F2 !important;
         font-size: 14px !important;
         height: 40px;
         width: 100%;
@@ -828,21 +841,21 @@ body.modal-open{
     }
 
     .button-download{
-        color: #ffffff !important;
+        color: #E7F6F2 !important;
         height: 40px;
         width: 100%;
         min-width: 170px;
         border-radius: 12px;
-        background: #83cfe4 !important;
+        background: #A5C9CA !important;
         box-shadow: 0px 6px 75px rgb(100 87 87 / 5%);
     }
     
     .button-share{
-        color: #ffffff !important;
+        color: #E7F6F2 !important;
         height: 40px;
         width: 100%;
         border-radius: 12px;
-        background: #83cfe4 !important;
+        background: #A5C9CA !important;
         box-shadow: 0px 6px 75px rgb(100 87 87 / 5%);
     }
 
