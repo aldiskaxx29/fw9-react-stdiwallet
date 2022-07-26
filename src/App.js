@@ -19,7 +19,7 @@ import SignUp from "./pages/SignUp";
 import { StatusFailed } from "./pages/StatusFailed";
 import { StatusSuccess } from "./pages/StatusSuccess";
 import { TopUp } from "./pages/TopUp";
-import { Transfer } from "./pages/Transfer";
+import Transfer from "./pages/Transfer";
 import { TransferInput } from "./pages/TransferInput";
 import { TransferPinConfirm } from "./pages/TransferPinConfirm";
 
