@@ -2,7 +2,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { FiMail,FiLock,FiUser } from "react-icons/fi";
 import React from 'react'
 import Auth from "../component/Auth"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from 'yup'
 import { Helmet } from "react-helmet";
@@ -14,7 +14,8 @@ const signupSchema = Yup.object().shape({
 })
 
 const AuthSignUp = ({errors,handleChange,handleSubmit}) => {
-    const lock = errors.email===undefined&&errors.password===undefined&&errors.username===undefined
+    let lock = true
+    lock = errors.email!==undefined||errors.password!==undefined||errors.username!==undefined
     return(
         <>
             <Form onSubmit={handleSubmit}>
@@ -42,9 +43,7 @@ const AuthSignUp = ({errors,handleChange,handleSubmit}) => {
                     </div>
                 </Form.Group>
             <div>
-                <Link to="/createPin">
-                    <Button disabled={!lock} className="btn-primary auth-button w-100 mt-5" type="submit">Sign Up</Button>
-                </Link>
+                <Button disabled={lock} className="btn-primary auth-button w-100 mt-5" type="submit">Sign Up</Button>
             </div>
             </Form>
         </>
@@ -52,6 +51,14 @@ const AuthSignUp = ({errors,handleChange,handleSubmit}) => {
 }
 
 const SignUp = () => {
+    const navigate = useNavigate()
+    const signUpRequest = (val) => {
+        if(val.email===''&&val.password===''){
+            window.alert('Write Your Email and Password')
+        }else{
+            navigate('/createPin',{replace: true})
+        }
+    }
   return (
     <>
     <Helmet>
@@ -68,7 +75,7 @@ const SignUp = () => {
                 <div>
                     <p className="auth-text-form mt-5">Transfering money is eassier than ever, you can access STD iWallet wherever you are. Desktop, laptop, mobile phone? we cover all of that for you!</p>
                 </div>
-                <Formik validationSchema={signupSchema} initialValues={{username:'',email:'',password:''}}>
+                <Formik validationSchema={signupSchema} initialValues={{username:'',email:'',password:''}} onSubmit={signUpRequest}>
                     {(props)=><AuthSignUp{...props}/>}
                 </Formik>
 

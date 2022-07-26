@@ -2,7 +2,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { FiMail,FiLock } from "react-icons/fi";
 import React from 'react'
 import Auth from "../component/Auth"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from 'yup'
 import { Helmet } from "react-helmet";
@@ -12,8 +12,9 @@ const loginSchema = Yup.object().shape({
     password: Yup.string().required('Required')
 })
 
-const AuthLogin = ({errors,handleChange,handleSubmit}) =>{
-    const lock = errors.email===undefined&&errors.password===undefined
+const AuthLogin = ({errors,handleSubmit,handleChange}) =>{
+    let lock = true
+    lock = errors.email!==undefined||errors.password!==undefined
     return(
         <>
         <Form noValidate onSubmit={handleSubmit}>
@@ -37,9 +38,7 @@ const AuthLogin = ({errors,handleChange,handleSubmit}) =>{
                 <Link to="/forgotPassword">Forgot password?</Link>
             </div>
             <div>
-                <Link to="/home">
-                    <Button disabled={!lock} className="btn-primary auth-button w-100 mt-5" type="submit">Login</Button>
-                </Link>
+                <Button disabled={lock} className="auth-button w-100 mt-5" type="submit">Login</Button>
             </div>
         </Form>
     </>
@@ -47,6 +46,15 @@ const AuthLogin = ({errors,handleChange,handleSubmit}) =>{
 }
 
 const Login = () => {
+    const navigate = useNavigate()
+    const loginRequest = (val) => {
+        if(val.email===''&&val.password===''){
+            window.alert('Write Your Email and Password')
+        }else{
+            navigate('/home',{replace: true})
+        }
+    }
+
   return (
     <>
     <Helmet>
@@ -63,7 +71,7 @@ const Login = () => {
                 <div>
                     <p className="auth-text-form mt-5">Transfering money is eassier than ever, you can access STD iWallet wherever you are. Desktop, laptop, mobile phone? we cover all of that for you!</p>
                 </div>
-                <Formik validationSchema={loginSchema} initialValues={{email:'',password:''}}>
+                <Formik validationSchema={loginSchema} initialValues={{email:'',password:''}} onSubmit={loginRequest}>
                     {(props)=><AuthLogin {...props}/>}
                 </Formik>
                 <div className="text-center">
