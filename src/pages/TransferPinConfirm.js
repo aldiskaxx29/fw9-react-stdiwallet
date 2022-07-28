@@ -6,8 +6,61 @@ import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
 import samuel from '../assets/images/samuel.png'
 import { Helmet } from 'react-helmet'
+import {useSelector} from 'react-redux'
+import { Formik } from 'formik';
+import * as Yup from 'yup'
+
+const pinSchema = Yup.object().shape({
+  pin1: Yup.string().min(1).max(1).required(),
+  pin2: Yup.string().min(1).max(1).required(),
+  pin3: Yup.string().min(1).max(1).required(),
+  pin4: Yup.string().min(1).max(1).required(),
+  pin5: Yup.string().min(1).max(1).required(),
+  pin6: Yup.string().min(1).max(1).required()
+})
+
+const AuthPin = ({errors,handleSubmit,handleChange}) => {
+  return (
+    <>
+      <Form >
+        <Modal.Body>
+          <p className='wrap-text'>Enter your 6 digits PIN for confirmation to continue transferring money.</p>
+          <div className="d-flex flex-rows justify-content-around wrapper-pin mw-100 gap-2 mt-5">
+            <div className="d-flex auth-border-pin">
+              <Form.Control maxLength="1" min="0" max="9" className="auth-pin" type="number"/>
+            </div>
+            <div className="d-flex auth-border-pin">
+              <Form.Control maxLength="1" min="0" max="9" className="auth-pin" type="number"/>
+            </div>
+            <div className="d-flex auth-border-pin">
+              <Form.Control maxLength="1" min="0" max="9" className="auth-pin" type="number"/>
+            </div>
+            <div className="d-flex auth-border-pin">
+              <Form.Control maxLength="1" min="0" max="9" className="auth-pin" type="number"/>
+            </div>
+            <div className="d-flex auth-border-pin">
+              <Form.Control maxLength="1" min="0" max="9" className="auth-pin" type="number"/>
+            </div>
+            <div className="d-flex auth-border-pin">
+              <Form.Control maxLength="1" min="0" max="9" className="auth-pin" type="number"/>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Link to='/statusFailed'>
+            <Button className='auth-button' type='submit'>Cancel</Button>
+          </Link>
+          <Link to='/statusSuccess'>
+            <Button className='auth-button' type='submit'>Confirm</Button>
+          </Link>
+        </Modal.Footer>
+      </Form>
+    </>
+  )
+}
 
 const MyModal = (props) => {
+  console.log(props);
   return(
     <>
       <Helmet>
@@ -20,37 +73,9 @@ const MyModal = (props) => {
                 Enter Pin to Transfer
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <p className='wrap-text'>Enter your 6 digits PIN for confirmation to continue transferring money.</p>
-          <Form className="d-flex flex-rows justify-content-around wrapper-pin mw-100 gap-2 mt-5">
-            <div className="d-flex auth-border-pin">
-              <Form.Control maxlength="1" min="0" max="9" className="auth-pin" type="number"/>
-            </div>
-            <div className="d-flex auth-border-pin">
-              <Form.Control maxlength="1" min="0" max="9" className="auth-pin" type="number"/>
-            </div>
-            <div className="d-flex auth-border-pin">
-              <Form.Control maxlength="1" min="0" max="9" className="auth-pin" type="number"/>
-            </div>
-            <div className="d-flex auth-border-pin">
-              <Form.Control maxlength="1" min="0" max="9" className="auth-pin" type="number"/>
-            </div>
-            <div className="d-flex auth-border-pin">
-              <Form.Control maxlength="1" min="0" max="9" className="auth-pin" type="number"/>
-            </div>
-            <div className="d-flex auth-border-pin">
-              <Form.Control maxlength="1" min="0" max="9" className="auth-pin" type="number"/>
-            </div>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Link to='/statusFailed'>
-            <Button className='auth-button' onClick={props.onHide}>Cancel</Button>
-          </Link>
-          <Link to='/statusSuccess'>
-            <Button className='auth-button' onClick={props.onHide}>Confirm</Button>
-          </Link>
-        </Modal.Footer>
+        <Formik>
+          {(props)=><AuthPin{...props}/>}
+        </Formik>
       </Modal>    
     </>
   )
@@ -58,6 +83,8 @@ const MyModal = (props) => {
 
 export const TransferPinConfirm = () => {
   const [show, setShow] =React.useState(false);
+  const amount = useSelector((state=>state.amount.value))
+  const notes = useSelector((state=>state.notes.value))
   return (
     <>
       <Header/>
@@ -84,7 +111,7 @@ export const TransferPinConfirm = () => {
                   <div className="d-flex">
                     <div className="d-flex-column justify-content-center ms-3">
                       <p  className="wrap-type-confirm mb-1">Amount</p>
-                      <p className="wrap-name-confirm">Rp100.000</p>
+                      <p className="wrap-name-confirm">Rp{amount}</p>
                     </div>
                   </div>
                 </div>
@@ -114,7 +141,7 @@ export const TransferPinConfirm = () => {
                   <div className="d-flex">
                     <div className="d-flex-column justify-content-center ms-3">
                       <p  className="wrap-type-confirm mb-1">Notes</p>
-                      <p className="wrap-name-confirm">For buying some socks</p>
+                      <p className="wrap-name-confirm">{notes}</p>
                     </div>
                   </div>
                 </div>
