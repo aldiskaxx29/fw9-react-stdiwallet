@@ -8,8 +8,14 @@ import samuel from '../assets/images/samuel.png'
 import success from '../assets/images/success.png'
 import { FiDownload, FiShare2 } from 'react-icons/fi'
 import { Helmet } from 'react-helmet'
+import {useSelector, useDispatch} from 'react-redux'
+import { resetAmount } from '../redux/reducer/amount'
+import { resetNotes } from '../redux/reducer/notes'
 
 export const StatusSuccess = () => {
+  const dispatch = useDispatch()
+  const amount = useSelector((state=>state.amount.value))
+  const notes = useSelector((state=>state.notes.value))
   return (
     <>
       <Helmet>
@@ -31,7 +37,7 @@ export const StatusSuccess = () => {
                   <div className="d-flex">
                     <div className="d-flex-column justify-content-center ms-3">
                       <p  className="wrap-type-confirm mb-1">Amount</p>
-                      <p className="wrap-name-confirm">Rp100.000</p>
+                      <p className="wrap-name-confirm">Rp{amount}</p>
                     </div>
                   </div>
                 </div>
@@ -61,7 +67,7 @@ export const StatusSuccess = () => {
                   <div className="d-flex">
                     <div className="d-flex-column justify-content-center ms-3">
                       <p  className="wrap-type-confirm mb-1">Notes</p>
-                      <p className="wrap-name-confirm">For buying some socks</p>
+                      <p className="wrap-name-confirm">{notes}</p>
                     </div>
                   </div>
                 </div>
@@ -86,7 +92,7 @@ export const StatusSuccess = () => {
                   <Button className="button-download my-2 my-md-5 me-3" type="submit"><FiDownload className='navboard-icons me-3'/>Download</Button>
                 </Link>
                 <Link to='/home'>
-                  <Button className="auth-button my-2 my-md-5" type="submit">Continue</Button>
+                  <Button className="auth-button my-2 my-md-5" onClick={[()=>dispatch(resetAmount),()=>dispatch(resetNotes)]} type="submit">Continue</Button>
                 </Link>
               </div>
             </div>

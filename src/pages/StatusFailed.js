@@ -7,8 +7,14 @@ import NavBoard from '../component/NavBoard'
 import samuel from '../assets/images/samuel.png'
 import failed from '../assets/images/failed.png'
 import { Helmet } from 'react-helmet'
+import {useSelector, useDispatch} from 'react-redux'
+import { resetAmount } from '../redux/reducer/amount'
+import { resetNotes } from '../redux/reducer/notes'
 
 export const StatusFailed = () => {
+  const dispatch = useDispatch()
+  const amount = useSelector((state=>state.amount.value))
+  const notes = useSelector((state=>state.notes.value))
   return (
     <>
       <Helmet>
@@ -31,7 +37,7 @@ export const StatusFailed = () => {
                   <div className="d-flex">
                     <div className="d-flex-column justify-content-center ms-3">
                       <p  className="wrap-type-confirm mb-1">Amount</p>
-                      <p className="wrap-name-confirm">Rp100.000</p>
+                      <p className="wrap-name-confirm">Rp{amount}</p>
                     </div>
                   </div>
                 </div>
@@ -61,7 +67,7 @@ export const StatusFailed = () => {
                   <div className="d-flex">
                     <div className="d-flex-column justify-content-center ms-3">
                       <p  className="wrap-type-confirm mb-1">Notes</p>
-                      <p className="wrap-name-confirm">For buying some socks</p>
+                      <p className="wrap-name-confirm">{notes}</p>
                     </div>
                   </div>
                 </div>
@@ -80,7 +86,7 @@ export const StatusFailed = () => {
               </div>
               <div className="d-md-flex justify-content-end">
                 <Link to='/pinConfirm'>
-                  <Button className="auth-button my-5" type="submit">Try Again</Button>
+                  <Button className="auth-button my-5" onClick={[()=>dispatch(resetAmount),()=>dispatch(resetNotes)]} type="submit">Try Again</Button>
                 </Link>
               </div>
             </div>

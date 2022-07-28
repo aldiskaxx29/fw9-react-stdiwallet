@@ -15,7 +15,7 @@ class DataProfile extends React.Component {
   render() {
     return (
       <>
-        <div className="d-flex-column wrap-receiver p-3 my-3">
+        <div key={this.props.id} className="d-flex-column wrap-receiver p-3 my-3">
           <Link to='/transferInput' className="d-flex justify-content-between align-items-center">
             <div className="d-flex">
               <img src={momotaro} className="img-home-prof" alt="momotaro"/>
@@ -118,8 +118,8 @@ export default class Transfer extends React.Component {
                 {this.state.data.result&&this.state.data.result.map((val)=>{
                   return(
                     <>
-                      <React.Fragment key={val.id}>
-                        <DataProfile name={val.first_name+' '+val.last_name} num_phone={val.num_phone}/>
+                      <React.Fragment >
+                        <DataProfile id={val.id} name={val.first_name+' '+val.last_name} num_phone={val.num_phone}/>
                       </React.Fragment>
                     </>
                   )

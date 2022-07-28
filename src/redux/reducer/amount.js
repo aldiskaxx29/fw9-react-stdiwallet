@@ -1,19 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const intialState = {
-  amount: 0
+const initialState = {
+  value: 0
 }
 
 export const amountSlice = createSlice({
-  nama: 'amount',
-  intialState,
+  name: 'amount',
+  initialState,
   reducers: {
     costumAmount: (state,action)=>{
-      state.amount = parseInt(action.payload, 10)
+      state.value = parseInt(action.payload, 10)
+    },
+    resetAmount: (state)=>{
+      state.value = 0
     }
   }
 })
 
-export const {costumAmount} = amountSlice.actions
+export const {costumAmount,resetAmount} = amountSlice.actions
 
 export default amountSlice.reducer
