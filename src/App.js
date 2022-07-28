@@ -1,6 +1,7 @@
 import React from 'react';
 import {Route,Routes,BrowserRouter} from 'react-router-dom';
 import { PrivateRoute } from './component/PrivateRoute';
+import { PublicRoute } from './component/PublicRoute';
 import { AddNumber } from './pages/AddNumber';
 import { ChangePassword } from './pages/ChangePassword';
 import { ChangePin } from './pages/ChangePin';
@@ -28,13 +29,13 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landingpage/>}/>
-        <Route path="login" element={<Login/>}/>
-        <Route path="signUp" element={<SignUp/>}/>
-        <Route path="createPin" element={<CreatePin/>}/>
-        <Route path="createPinSuccess" element={<CreatePinSuccess/>}/>
-        <Route path="forgotPassword" element={<ForgotPassword/>}/>
-        <Route path="forgotPasswordInsert" element={<ForgotPasswordInsert/>}/>
+        <Route path="/" element={<PublicRoute> <Landingpage/></PublicRoute>}/>
+        <Route path="login" element={<PublicRoute><Login/></PublicRoute>}/>
+        <Route path="signUp" element={<PublicRoute><SignUp/></PublicRoute>}/>
+        <Route path="createPin" element={<PublicRoute><CreatePin/></PublicRoute>}/>
+        <Route path="createPinSuccess" element={<PublicRoute><CreatePinSuccess/></PublicRoute>}/>
+        <Route path="forgotPassword" element={<PublicRoute><ForgotPassword/></PublicRoute>}/>
+        <Route path="forgotPasswordInsert" element={<PublicRoute><ForgotPasswordInsert/></PublicRoute>}/>
         
         <Route path="home" element=
           {<PrivateRoute>
