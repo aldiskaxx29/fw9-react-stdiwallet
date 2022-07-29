@@ -210,6 +210,10 @@ body{
     -o-border-radius: 0px!important;
 }
 
+.wrap-notes:focus{
+    color: #395B64 !important;
+}
+
 .wrap-type{
     font-style: normal;
     font-weight: 400;
