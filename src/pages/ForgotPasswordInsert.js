@@ -8,8 +8,8 @@ import * as Yup from 'yup'
 import { Helmet } from 'react-helmet';
 
 const passwordSchema = Yup.object().shape({
-  password: Yup.string().min(4).required('Required'),
-  newpassword: Yup.string().min(4).required('Required')
+  password: Yup.string().min(8).required('Required'),
+  newpassword: Yup.string().min(8).required('Required')
 })
 
 const AuthPassword = ({errors,handleChange,handleSubmit}) =>{

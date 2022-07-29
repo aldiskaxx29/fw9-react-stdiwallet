@@ -1,20 +1,15 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-import { Col, Form, Row } from 'react-bootstrap'
-import { FiSearch } from 'react-icons/fi'
+import { Col, Row } from 'react-bootstrap'
 import { Footer } from '../component/Footer'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
-import michel from '../assets/images/Rectangle 25.png'
 import samuel from '../assets/images/samuel.png'
-import momotaro from '../assets/images/momotaro.png'
-import jessica from '../assets/images/jessica.png'
 import { Helmet } from 'react-helmet'
 
-const Construct = ({name,transaction,amount,sender}) => {
+const Construct = ({name,transaction,amount,sender,key}) => {
   return(
     <>
-      <div className="d-flex-column wrap-receiver p-3 my-3">
+      <div key={key} className="d-flex-column wrap-receiver p-3 my-3">
         <div className="d-flex justify-content-between align-items-center">
           <div className="d-flex">
             <img src={samuel} className="img-home-prof rounded" alt="samuel"/>
@@ -117,11 +112,11 @@ export const History = () => {
             <div className='wrap-right-el d-flex-column px-3 px-md-4 pt-3 pt-md-4'>
               <h1 className="wrap-title">Transaction History</h1>
               <p className="wrap-text mt-2 mt-md-3 mb-3 mb-md-5">This Week</p>
-              {transaction.result&&transaction.result.map((val)=>{
+              {transaction.result&&transaction.result.map((val,index)=>{
                 return(
-                  <React.Fragment key={val.id}>
-                    <Construct name={val.receiver_id!==67?val.receiver_id:val.notes} transaction={val.transfertype} amount={val.amount} sender={val.sender_id}/>
-                  </React.Fragment>
+                  //<React.Fragment >
+                  <Construct key={index} name={val.receiver_id!==67?val.receiver_id:val.notes} transaction={val.transfertype} amount={val.amount} sender={val.sender_id}/>
+                  //</React.Fragment>
                 )
               })}
             </div>
@@ -132,19 +127,3 @@ export const History = () => {
     </>
   )
 }
-
-
-{/* <div className="d-flex-column wrap-receiver p-3 my-3">
-<div className="d-flex justify-content-between align-items-center">
-    <div className="d-flex">
-        <img src={samuel} className="img-home-prof rounded" alt="samuel"/>
-        <div className="d-flex-column justify-content-center ms-3">
-            <p className="wrap-name-transfer">{val.sender_id?val.sender_id:val.notes}</p>
-            <p  className="wrap-type">{val.transfertype}</p>
-        </div>
-        </div>
-            {val.transfertype==='Transfer'?
-            <p className="history-espense">-Rp{val.amount}</p>:
-            <p className="history-income">+Rp{val.amount}</p>}
-</div>
-</div> */}

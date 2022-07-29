@@ -11,8 +11,16 @@ import NavBoard from '../component/NavBoard'
 import { Footer } from '../component/Footer'
 import {Link} from 'react-router-dom';
 import { Helmet } from 'react-helmet'
+import {useDispatch, useSelector } from 'react-redux/es/exports'
+import { showProfile } from '../redux/asyncAction/profile'
 
 export const Home = () => {
+  const data = useSelector((state=>state.profile.value))
+  const dispatch = useDispatch()
+  React.useEffect(()=>{
+    dispatch(showProfile())
+    console.log(data);
+  },[])
   return (
     <>
       <Helmet>
@@ -30,7 +38,7 @@ export const Home = () => {
                   <div className='wrap-details d-flex justify-content-between'>
                     <div className="wrap-info">
                       <p>Balance</p>
-                      <h1>RP 120.000</h1>
+                      <h1>{data?.result?.balance}</h1>
                       <p>+62 813-9387-7946</p>
                     </div>
                     <div>

@@ -7,12 +7,9 @@ import NavBoard from '../component/NavBoard'
 import samuel from '../assets/images/samuel.png'
 import failed from '../assets/images/failed.png'
 import { Helmet } from 'react-helmet'
-import {useSelector, useDispatch} from 'react-redux'
-import { resetAmount } from '../redux/reducer/amount'
-import { resetNotes } from '../redux/reducer/notes'
+import {useSelector} from 'react-redux'
 
 export const StatusFailed = () => {
-  const dispatch = useDispatch()
   const amount = useSelector((state=>state.amount.value))
   const notes = useSelector((state=>state.notes.value))
   return (
@@ -86,7 +83,7 @@ export const StatusFailed = () => {
               </div>
               <div className="d-md-flex justify-content-end">
                 <Link to='/pinConfirm'>
-                  <Button className="auth-button my-5" onClick={[()=>dispatch(resetAmount),()=>dispatch(resetNotes)]} type="submit">Try Again</Button>
+                  <Button className="auth-button my-5" type="submit">Try Again</Button>
                 </Link>
               </div>
             </div>

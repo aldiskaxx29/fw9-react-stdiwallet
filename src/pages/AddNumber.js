@@ -23,8 +23,8 @@ const AuthPhone = ({errors,handleSubmit,handleChange}) => {
           <Form.Group className="d-flex-column d-md-flex mt-5">
             <span className="auth-form"> <FiPhone className='d-none d-md-flex'/> </span>
             <Form.Control name='phone' onChange={handleChange} className="auth-form" type="text" placeholder="Type Your Number" isInvalid={!!errors.phone}/>
-            <Form.Control.Feedback type='invalid'>{errors.phone}</Form.Control.Feedback>
           </Form.Group>
+          <span className='text-danger text-center'>{errors.phone}</span>
         </div>
         <div className="text-center wrap-button my-5">
           <Button className="button-insert" type='submit'>Add Number</Button>
@@ -42,11 +42,11 @@ export const AddNumber = () => {
     console.log(val.phone[0]===0);
     if (regExp.test(val.phone)) {
       window.alert('Input Only Mobile Phone Format')
-    }else if(val.phone[0]==='0'||val.phone.includes('+62')){
+    }else if((val.phone[0]==='0'&&val.phone[1]==='8')||val.phone.includes('+62')){
       dispatch(costumPhone(val.phone))
       navigate('/personalInfo')
     }else{
-      window.alert('You Stupid')
+      window.alert('Invalid Format Number')
     }
   }
   return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap'
 import { Footer } from '../component/Footer'
 import Header from '../component/Headers'
@@ -20,39 +20,36 @@ const pinSchema = Yup.object().shape({
 })
 
 const AuthPin = ({errors,handleSubmit,handleChange}) => {
+  const navigate = useNavigate()
   return (
     <>
-      <Form >
+      <Form onSubmit={handleSubmit}>
         <Modal.Body>
           <p className='wrap-text'>Enter your 6 digits PIN for confirmation to continue transferring money.</p>
           <div className="d-flex flex-rows justify-content-around wrapper-pin mw-100 gap-2 mt-5">
             <div className="d-flex auth-border-pin">
-              <Form.Control maxLength="1" min="0" max="9" className="auth-pin" type="number"/>
+              <Form.Control name='pin1' onChange={handleChange} maxLength="1" min="0" max="9" className="auth-pin" type="text" isInvalid={!!errors.pin}/>
             </div>
             <div className="d-flex auth-border-pin">
-              <Form.Control maxLength="1" min="0" max="9" className="auth-pin" type="number"/>
+              <Form.Control name='pin2' onChange={handleChange} maxLength="1" min="0" max="9" className="auth-pin" type="text"  isInvalid={!!errors.pin2}/>
             </div>
             <div className="d-flex auth-border-pin">
-              <Form.Control maxLength="1" min="0" max="9" className="auth-pin" type="number"/>
+              <Form.Control name='pin3' onChange={handleChange} maxLength="1" min="0" max="9" className="auth-pin" type="text"  isInvalid={!!errors.pin3}/>
             </div>
             <div className="d-flex auth-border-pin">
-              <Form.Control maxLength="1" min="0" max="9" className="auth-pin" type="number"/>
+              <Form.Control name='pin4' onChange={handleChange} maxLength="1" min="0" max="9" className="auth-pin" type="text"  isInvalid={!!errors.pin4}/>
             </div>
             <div className="d-flex auth-border-pin">
-              <Form.Control maxLength="1" min="0" max="9" className="auth-pin" type="number"/>
+              <Form.Control name='pin5' onChange={handleChange} maxLength="1" min="0" max="9" className="auth-pin" type="text"  isInvalid={!!errors.pin5}/>
             </div>
             <div className="d-flex auth-border-pin">
-              <Form.Control maxLength="1" min="0" max="9" className="auth-pin" type="number"/>
+              <Form.Control name='pin6' onChange={handleChange} maxLength="1" min="0" max="9" className="auth-pin" type="text"  isInvalid={!!errors.pin}/>
             </div>
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Link to='/statusFailed'>
-            <Button className='auth-button' type='submit'>Cancel</Button>
-          </Link>
-          <Link to='/statusSuccess'>
-            <Button className='auth-button' type='submit'>Confirm</Button>
-          </Link>
+          <Button name='button-cancel' onClick={()=>navigate('/statusFailed')} className='auth-button' type='submit'>Cancel</Button>
+          <Button name='button-confirm' className='auth-button' type='submit'>Confirm</Button>
         </Modal.Footer>
       </Form>
     </>
@@ -60,7 +57,20 @@ const AuthPin = ({errors,handleSubmit,handleChange}) => {
 }
 
 const MyModal = (props) => {
-  console.log(props);
+  const navigate = useNavigate()
+  const pinRequest = (val) => {
+    const pin = val.pin1+val.pin2+val.pin3+val.pin4+val.pin5+val.pin6
+    const regExp = /^\d+$/;
+    if(regExp.test(pin)){
+      if (pin.length!==6) {
+        window.alert('Pin Should Have 6 Digit')
+      }else{
+        navigate('/statusSuccess')
+      }
+    }else{
+      window.alert('Input Only Number')
+    }
+  }
   return(
     <>
       <Helmet>
@@ -73,7 +83,9 @@ const MyModal = (props) => {
                 Enter Pin to Transfer
           </Modal.Title>
         </Modal.Header>
-        <Formik>
+        <Formik validationSchema={pinSchema} 
+          initialValues={{pin1:'',pin2:'',pin3:'',pin4:'',pin5:'',pin6:''}}
+          onSubmit={pinRequest}>
           {(props)=><AuthPin{...props}/>}
         </Formik>
       </Modal>    

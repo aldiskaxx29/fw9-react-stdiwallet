@@ -10,7 +10,7 @@ import { Helmet } from 'react-helmet';
 const signupSchema = Yup.object().shape({
   username: Yup.string().min(4).required('Required'),
   email: Yup.string().email('Invalid email address format').required('Required'),
-  password: Yup.string().min(4).required('Required')
+  password: Yup.string().min(8).required('Required')
 })
 
 const AuthSignUp = ({errors,handleChange,handleSubmit}) => {
