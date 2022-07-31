@@ -1,11 +1,16 @@
 import React from 'react';
 import {FiGrid, FiPlus, FiUser, FiLogOut,FiArrowUp} from 'react-icons/fi'
 import { Col } from 'react-bootstrap';
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import {useDispatch } from 'react-redux/es/exports'
+import { logout } from '../redux/reducer/auth';
 
 const NavBoard = () => {
+  const navigate= useNavigate()
+  const dispatch = useDispatch()
   const logOut =()=>{
-    localStorage.removeItem('auth')
+    dispatch(logout())
+    navigate('/')
   }
   return(
     <>
@@ -30,10 +35,10 @@ const NavBoard = () => {
             </Link>
           </div>
           <div className="d-flex flex-column gap-5">
-            <Link to="/" onClick={logOut} className="d-flex wrap-log-out wrap-nav-dashboard align-items-center pe-4 pe-md-0 py-md-3 my-2">
+            <div onClick={logOut} className="d-flex wrap-log-out wrap-nav-dashboard align-items-center pe-4 pe-md-0 py-md-3 my-2">
               <FiLogOut className="navboard-icons"/>
               <p className="ms-2 ms-md-3 my-0 wrap-nav-text">Log out</p>
-            </Link>
+            </div>
           </div>
         </div>
       </Col>
