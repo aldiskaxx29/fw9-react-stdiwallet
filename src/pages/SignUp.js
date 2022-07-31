@@ -6,6 +6,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup'
 import { Helmet } from 'react-helmet';
+import { useSelector,useDispatch } from 'react-redux';
+import { register } from '../redux/asyncAction/auth';
+import { costumeEmail } from '../redux/reducer/auth';
 
 const signupSchema = Yup.object().shape({
   username: Yup.string().min(4).required('Required'),
@@ -14,6 +17,19 @@ const signupSchema = Yup.object().shape({
 })
 
 const AuthSignUp = ({errors,handleChange,handleSubmit}) => {
+  const navigate = useNavigate()
+  const error = useSelector((state=>state.auth.errormsg))
+  const success = useSelector((state=>state.auth.successmsg))
+
+  if (error) {
+    window.alert(error)
+  }
+  
+  React.useEffect(()=>{
+    if(success){
+      navigate('/createPin',{state:{success}})
+    }
+  },[success,navigate])
   let lock = true
   lock = errors.email!==undefined||errors.password!==undefined||errors.username!==undefined
   return(
@@ -51,14 +67,23 @@ const AuthSignUp = ({errors,handleChange,handleSubmit}) => {
 }
 
 const SignUp = () => {
+  const dispatch = useDispatch()
+  const email = useSelector((state=>state.auth.email))
   const navigate = useNavigate()
   const signUpRequest = (val) => {
+    const request = {username:val.username,email:val.email,password:val.password}
     if(val.email===''&&val.password===''){
       window.alert('Write Your Email and Password')
     }else{
-      navigate('/createPin',{replace: true})
+      dispatch(costumeEmail(val.email))
+      dispatch(register(request))
     }
   }
+  React.useEffect(()=>{
+    if(email){
+      navigate('/createPin')
+    }
+  },[navigate,email])
   return (
     <>
       <Helmet>

@@ -8,9 +8,9 @@ import {useDispatch, useSelector } from 'react-redux/es/exports'
 import { showAllProfile } from '../redux/asyncAction/getAllProfile'
 import { useNavigate } from 'react-router-dom'
 import { FiSearch } from 'react-icons/fi'
-import { costumNameTransfer, costumPhoneTransfer, costumPhotoTransfer } from '../redux/reducer/transfer'
+import { costumNameTransfer, costumPhoneTransfer, costumPhotoTransfer, costumReceiver } from '../redux/reducer/transfer'
 
-const DataDynamic = ({id,name,num_phone,photo}) => {
+const DataDynamic = ({id,name,num_phone,photo,user_id}) => {
   const urlImage=`http://localhost:3333/public/uploadProfile/${photo}`
   const navigate= useNavigate()
   const dispatch = useDispatch()
@@ -18,6 +18,7 @@ const DataDynamic = ({id,name,num_phone,photo}) => {
     dispatch(costumNameTransfer(name))
     dispatch(costumPhoneTransfer(num_phone))
     dispatch(costumPhotoTransfer(urlImage))
+    dispatch(costumReceiver(user_id))
     navigate('/transferInput')
   }
   return(
@@ -66,7 +67,7 @@ export const Transfer = () => {
                 return(
                   <>
                     <React.Fragment >
-                      <DataDynamic id={val.id} photo={val.profile_photo} name={val.first_name+' '+val.last_name} num_phone={val.num_phone}/>
+                      <DataDynamic id={val.id} user_id={val.user_id} photo={val.profile_photo} name={val.first_name+' '+val.last_name} num_phone={val.num_phone}/>
                     </React.Fragment>
                   </>
                 )

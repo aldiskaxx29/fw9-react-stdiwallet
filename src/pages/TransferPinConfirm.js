@@ -97,9 +97,12 @@ export const TransferPinConfirm = () => {
   const dataName = useSelector((state=>state.transfer.name))
   const dataPhone = useSelector((state=>state.transfer.phone))
   const dataPhoto = useSelector((state=>state.transfer.photo))
+  const dataDate = useSelector((state=>state.transfer.date))
+  const balance = useSelector((state=>state.profile.balance))
   const [show, setShow] =React.useState(false);
   const amount = useSelector((state=>state.amount.value))
   const notes = useSelector((state=>state.notes.value))
+  const balanceleft = balance-amount
   return (
     <>
       <Header/>
@@ -136,7 +139,7 @@ export const TransferPinConfirm = () => {
                   <div className="d-flex">
                     <div className="d-flex-column justify-content-center ms-3">
                       <p  className="wrap-type-confirm mb-1">Balance Left</p>
-                      <p className="wrap-name-confirm">Rp20.000</p>
+                      <p className="wrap-name-confirm">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(parseInt(balanceleft))}</p>
                     </div>
                   </div>
                 </div>
@@ -146,7 +149,7 @@ export const TransferPinConfirm = () => {
                   <div className="d-flex">
                     <div className="d-flex-column justify-content-center ms-3">
                       <p  className="wrap-type-confirm mb-1">Date & Time</p>
-                      <p className="wrap-name-confirm">May 11, 2020 - 12.20</p>
+                      <p className="wrap-name-confirm">{dataDate}</p>
                     </div>
                   </div>
                 </div>

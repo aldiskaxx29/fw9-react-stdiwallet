@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Formik } from 'formik';
 import * as Yup from 'yup'
+import { useDispatch,useSelector } from 'react-redux/es/exports';
+import { createpin } from '../redux/asyncAction/auth';
 
 const pinSchema = Yup.object().shape({
   pin1: Yup.string().min(1).max(1).required(),
@@ -16,6 +18,18 @@ const pinSchema = Yup.object().shape({
 })
 
 const AuthPin = ({errors,handleSubmit,handleChange}) => {
+  const navigate = useNavigate()
+  const error = useSelector((state=>state.auth.errormsg))
+  const success = useSelector((state=>state.auth.successmsg))
+  if (error) {
+    window.alert(error)
+  }
+  
+  React.useEffect(()=>{
+    if(success){
+      navigate('/createPinSuccess',{state:{success}})
+    }
+  },[success,navigate])
   return(
     <>
       <Form noValidate onSubmit={handleSubmit} >
@@ -50,20 +64,28 @@ const AuthPin = ({errors,handleSubmit,handleChange}) => {
 
 const CreatePin = () => {
   const navigate = useNavigate()
+  const email = useSelector((state)=>state.auth.email)
+  const success = useSelector((state)=>state.auth.successmsg)
+  const dispatch = useDispatch()
   const pinRequest = (val) => {
     const pin = val.pin1+val.pin2+val.pin3+val.pin4+val.pin5+val.pin6
     const regExp = /^\d+$/;
-    console.log(pin);
+    const request = {email,pin}
     if(regExp.test(pin)){
       if (pin.length!==6) {
         window.alert('Pin Should Have 6 Digit')
       }else{
-        navigate('/createPinSuccess')
+        dispatch(createpin(request))
       }
     }else{
       window.alert('Input Only Number')
     }
   }
+  React.useEffect(()=>{
+    if(success){
+      navigate('/createPinSuccess')
+    }
+  },[navigate,success])
   return (
     <>
       <Helmet>

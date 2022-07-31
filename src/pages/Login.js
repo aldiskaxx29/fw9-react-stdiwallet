@@ -6,6 +6,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup'
 import { Helmet } from 'react-helmet';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { login } from '../redux/asyncAction/auth';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email address format').required('Required'),
@@ -46,17 +48,31 @@ const AuthLogin = ({errors,handleSubmit,handleChange}) =>{
 }
 
 const Login = () => {
+  const dispatch = useDispatch()
   const location = useLocation()
   const navigate = useNavigate()
+  const token = useSelector((state=>state.auth.token))
+  const error = useSelector((state=>state.auth.errormsg))
+  
+  if(error){
+    window.alert(error)
+  }
+
   const loginRequest = (val) => {
+    const request = {email:val.email,password:val.password}
     if(val.email===''&&val.password===''){
       window.alert('Write Your Email and Password')
     }else{
-      localStorage.setItem('auth','token')
-      navigate('/home')
+      dispatch(login(request))
     }
   }
-
+  
+  React.useEffect(()=>{
+    if (token) {
+      navigate('/home');
+    }
+  }, [navigate, token]);
+  
   return (
     <>
       {location.state?.errormsg&&(

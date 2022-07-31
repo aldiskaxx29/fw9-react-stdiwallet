@@ -4,7 +4,6 @@ import { Button, Col, Form, Row } from 'react-bootstrap'
 import { Footer } from '../component/Footer'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
-import samuel from '../assets/images/samuel.png'
 import { FiEdit2 } from 'react-icons/fi'
 import { Helmet } from 'react-helmet'
 import { Formik } from 'formik';
@@ -12,6 +11,8 @@ import * as Yup from 'yup'
 import {useDispatch, useSelector} from 'react-redux'
 import { costumAmount } from '../redux/reducer/amount'
 import {costumNotes} from '../redux/reducer/notes'
+import { transfer } from '../redux/asyncAction/transfer'
+import { costumDateTransfer } from '../redux/reducer/transfer'
 
 const amountSchema = Yup.object().shape({
   amount: Yup.number().min(1).required('Required'),
@@ -19,6 +20,7 @@ const amountSchema = Yup.object().shape({
 
 const AuthAmoount = ({errors, handleSubmit, handleChange})=>{
   const transferName = useSelector((state=>state.transfer))
+  const balance = useSelector((state=>state.profile.balance))
   const dispatch = useDispatch()
   console.log(transferName);
   return(
@@ -27,7 +29,7 @@ const AuthAmoount = ({errors, handleSubmit, handleChange})=>{
         <div className="w-100 wrap-input">
           <Form.Control name='amount' onChange={handleChange} type="number" className="wrap-amount text-center" placeholder='0.00' isInvalid={!!errors.amount}/>
           <Form.Control.Feedback>{errors.amount}</Form.Control.Feedback>
-          <p className="wrap-available">Rp120.000 Available</p>
+          <p className="wrap-available">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(parseInt(balance))} Available</p>
         </div>
       </Form.Group>
       <Form.Group className="d-flex w-50 m-auto my-3 my-md-5">
@@ -45,14 +47,17 @@ export const TransferInput = () => {
   const dataName = useSelector((state=>state.transfer.name))
   const dataPhone = useSelector((state=>state.transfer.phone))
   const dataPhoto = useSelector((state=>state.transfer.photo))
+  const dataTime = new Date().toISOString()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  console.log(dataTime);
   const transferRequest = (val) => {
     if(val.amount===''){
       window.alert('Input Amount')
     }else{
       dispatch(costumAmount(val.amount))
-      navigate('/pinConfirm')
+      dispatch(costumDateTransfer(dataTime))
+      navigate('')
     }
   }
   return (
