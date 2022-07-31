@@ -12,6 +12,7 @@ import {useDispatch, useSelector } from 'react-redux/es/exports'
 import { showProfile } from '../redux/asyncAction/profile'
 import { showHistory } from '../redux/asyncAction/history'
 import { showAllProfile } from '../redux/asyncAction/getAllProfile'
+import { balance } from '../redux/reducer/profile'
 
 const DataDynamic = ({name,transaction,amount,sender}) => {
   const data = useSelector((state=>state.getAllProfile.value))
@@ -71,6 +72,7 @@ export const Home = () => {
                     <div className="wrap-info">
                       <p>Balance</p>
                       {data.result&&data.result.map((val)=>{
+                        dispatch(balance(val.balance))
                         return(
                           <>
                             <h1>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(parseInt(val.balance))}</h1>
