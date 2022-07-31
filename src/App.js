@@ -10,7 +10,7 @@ import CreatePin from './pages/CreatePin';
 import CreatePinSuccess from './pages/CreatePinSuccess';
 import ForgotPassword from './pages/ForgotPassword';
 import ForgotPasswordInsert from './pages/ForgotPasswordInsert';
-import { History } from './pages/History';
+import History from './pages/History';
 import { Home } from './pages/Home';
 import Landingpage from './pages/Landingpage';
 import  Login  from './pages/Login';
@@ -21,7 +21,7 @@ import SignUp from './pages/SignUp';
 import { StatusFailed } from './pages/StatusFailed';
 import { StatusSuccess } from './pages/StatusSuccess';
 import { TopUp } from './pages/TopUp';
-import Transfer from './pages/Transfer';
+import { Transfer } from './pages/Transfer';
 import { TransferInput } from './pages/TransferInput';
 import { TransferPinConfirm } from './pages/TransferPinConfirm';
 
