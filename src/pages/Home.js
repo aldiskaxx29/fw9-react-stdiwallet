@@ -3,9 +3,6 @@ import { Col, Row } from 'react-bootstrap'
 import { FiArrowUp, FiPlus } from 'react-icons/fi'
 import graph from '../assets/images/graphic.png'
 import samuel from '../assets/images/samuel.png'
-import netflix from '../assets/images/netflix.png'
-import christine from '../assets/images/cristine.png'
-import adobe from '../assets/images/adobe.png'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
 import { Footer } from '../component/Footer'
@@ -13,13 +10,48 @@ import {Link} from 'react-router-dom';
 import { Helmet } from 'react-helmet'
 import {useDispatch, useSelector } from 'react-redux/es/exports'
 import { showProfile } from '../redux/asyncAction/profile'
+import { showHistory } from '../redux/asyncAction/history'
+import { showAllProfile } from '../redux/asyncAction/getAllProfile'
+
+const DataDynamic = ({name,transaction,amount,sender}) => {
+  const data = useSelector((state=>state.getAllProfile.value))
+  const dispatch = useDispatch()
+  React.useEffect(()=>{
+    dispatch(showAllProfile())
+  },[])
+  console.log(data);
+  return(
+    <>
+      <div className="d-flex justify-content-between align-items-center mt-2 mt-md-5">
+        <div className="d-flex justify-content-center">
+          <img src={samuel} className="img-home-prof img-fluid" alt="samuel"/>
+          <div className="d-flex-column justify-content-center mx-3">
+            {data?.result?.map((val)=>{
+              return(
+                <>
+                  <p className="wrap-name-transfer">{val.user_id===name&&val.first_name+' '+val.last_name}</p>
+                </>
+              )
+            })}
+            <p  className="wrap-type">{transaction}</p>
+          </div>
+        </div>
+        {sender?
+          <p className="history-espense">-Rp{amount}</p>:
+          <p className="history-income">+Rp{amount}</p>}
+      </div>
+    </>
+  )
+}
 
 export const Home = () => {
   const data = useSelector((state=>state.profile.value))
+  const dataHistory = useSelector((state=>state.history.value))
+  const token = useSelector((state=>state.auth.token))
   const dispatch = useDispatch()
   React.useEffect(()=>{
-    dispatch(showProfile())
-    console.log(data);
+    dispatch(showProfile(token))
+    dispatch(showHistory(token))
   },[])
   return (
     <>
@@ -38,8 +70,14 @@ export const Home = () => {
                   <div className='wrap-details d-flex justify-content-between'>
                     <div className="wrap-info">
                       <p>Balance</p>
-                      <h1>{data?.result?.balance}</h1>
-                      <p>+62 813-9387-7946</p>
+                      {data.result&&data.result.map((val)=>{
+                        return(
+                          <>
+                            <h1>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(parseInt(val.balance))}</h1>
+                            <p>{val.num_phone}</p>
+                          </>
+                        )
+                      })}
                     </div>
                     <div>
                       <Link to='/transfer' className="d-flex justify-content-around align-items-center wrap-transfer mt-4 mx-3 mx-md-4">
@@ -83,46 +121,13 @@ export const Home = () => {
                       <Link to="/history" className="see-all">See all</Link>
                     </div>
                   </div>
-                  <div className="d-flex justify-content-between align-items-center mt-2 mt-md-5">
-                    <div className="d-flex justify-content-center">
-                      <img src={samuel} className="img-home-prof img-fluid" alt="profile"/>
-                      <div className="d-flex-column justify-content-center mx-3">
-                        <p className="history-name">Samuel Suhir</p>
-                        <p className="history-num">Transfer</p>
-                      </div>
-                    </div>
-                    <p className="history-income">+Rp50.000</p>
-                  </div> 
-                  <div className="d-flex justify-content-between align-items-center mt-1 mt-md-3">
-                    <div className="d-flex justify-content-center">
-                      <img src={netflix} className="img-home-prof img-fluid" alt="profile"/>
-                      <div className="d-flex-column justify-content-center mx-3">
-                        <p className="history-name">Netflix</p>
-                        <p className="history-num">Subscription</p>
-                      </div>
-                    </div>
-                    <p className="history-espense">-Rp149.000</p>
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center mt-1 mt-md-3">
-                    <div className="d-flex justify-content-center">
-                      <img src={christine} className="img-home-prof img-fluid" alt="profile"/>
-                      <div className="d-flex-column justify-content-center mx-3">
-                        <p className="history-name">Christine Mar...</p>
-                        <p className="history-num">Transfer</p>
-                      </div>
-                    </div>
-                    <p className="history-income">+Rp150.000</p>
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center mt-1 mt-md-3">
-                    <div className="d-flex justify-content-center">
-                      <img src={adobe} className="img-home-prof img-fluid" alt="profile"/>
-                      <div className="d-flex-column justify-content-center mx-3">
-                        <p className="history-name">Adobe Inc.</p>
-                        <p className="history-num">Subscription</p>
-                      </div>
-                    </div>
-                    <p className="history-espense">-Rp249.000</p>
-                  </div>
+                  {dataHistory?.result?.map((val,index)=>{
+                    return(
+                      <>
+                        <DataDynamic key={index} name={val.receiver_id!==67?val.receiver_id:val.notes} transaction={val.transfertype} amount={val.amount} sender={val.sender_id}/>
+                      </>
+                    )
+                  })}
                 </div>
               </Col>
             </Row>

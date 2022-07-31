@@ -4,7 +4,6 @@ import { Button, Col, Row } from 'react-bootstrap'
 import { Footer } from '../component/Footer'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
-import samuel from '../assets/images/samuel.png'
 import success from '../assets/images/success.png'
 import { FiDownload, FiShare2 } from 'react-icons/fi'
 import { Helmet } from 'react-helmet'
@@ -13,6 +12,9 @@ import { resetAmount } from '../redux/reducer/amount'
 import { resetNotes } from '../redux/reducer/notes'
 
 export const StatusSuccess = () => {
+  const dataName = useSelector((state=>state.transfer.name))
+  const dataPhone = useSelector((state=>state.transfer.phone))
+  const dataPhoto = useSelector((state=>state.transfer.photo))
   const dispatch = useDispatch()
   const amount = useSelector((state=>state.amount.value))
   const notes = useSelector((state=>state.notes.value))
@@ -76,10 +78,10 @@ export const StatusSuccess = () => {
               <div className="d-flex-column wrap-receiver p-3 my-3">
                 <div className="d-flex justify-content-between align-items-center">
                   <div className="d-flex">
-                    <img src={samuel} className="img-home-prof" alt="samuel"/>
+                    <img src={dataPhoto} className="img-home-prof" alt="samuel"/>
                     <div className="d-flex-column justify-content-center ms-3">
-                      <p className="wrap-name-transfer">Samuel Suhi</p>
-                      <p  className="wrap-type">+62 813-8492-9994</p>
+                      <p className="wrap-name-transfer">{dataName}</p>
+                      <p  className="wrap-type">{dataPhone}</p>
                     </div>
                   </div>
                 </div>

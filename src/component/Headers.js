@@ -2,8 +2,16 @@ import {Col,Row,Dropdown} from 'react-bootstrap';
 import React from 'react'
 import profile from '../assets/images/Rectangle 25.png'
 import {FiBell,FiArrowUp,FiArrowDown} from 'react-icons/fi'
+import {useDispatch, useSelector } from 'react-redux/es/exports'
+import { showProfile } from '../redux/asyncAction/profile'
 
 const Header = () => {
+  const data = useSelector((state=>state.profile.value))
+  const token = useSelector((state=>state.auth.token))
+  const dispatch = useDispatch()
+  React.useEffect(()=>{
+    dispatch(showProfile(token))
+  },[])
   return (
     <>
       <Row className="d-flex justify-content-between mw-100 wrap-header">
@@ -14,11 +22,18 @@ const Header = () => {
         </Col>
         <Col md={5}>
           <div className="d-flex justify-content-between justify-content-md-end align-items-center wrap-profile ps-3 px-md-3 mx-2 mx-md-3">
-            <img src={profile} className="img-home-prof img-fluid" alt="profile"/>
-            <div className="d-flex-column justify-content-center mx-3">
-              <p className="name-profile">Robert Chandler</p>
-              <p className="num-profile">+62 8139 3877 7946</p>
-            </div>
+            {data?.result?.map((val)=>{
+              const urlImage=`http://localhost:3333/public/uploadProfile/${val.profile_photo}`
+              return(
+                <>
+                  <img src={urlImage} className="img-home-prof img-fluid" alt="profile"/>
+                  <div className="d-flex-column justify-content-center mx-3">
+                    <p className="name-profile">{val.first_name+' '+val.last_name}</p>
+                    <p className="num-profile">{val.num_phone}</p>
+                  </div>
+                </>
+              )
+            })}
             <Dropdown>
               <Dropdown.Toggle className="w-100 wrap-bg-button wrap-header-button" type="button">
                 <FiBell className="wrap-nav-dashboard wrap-header-button"/>

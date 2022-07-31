@@ -9,7 +9,7 @@ import { FiEdit2 } from 'react-icons/fi'
 import { Helmet } from 'react-helmet'
 import { Formik } from 'formik';
 import * as Yup from 'yup'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { costumAmount } from '../redux/reducer/amount'
 import {costumNotes} from '../redux/reducer/notes'
 
@@ -18,7 +18,9 @@ const amountSchema = Yup.object().shape({
 })
 
 const AuthAmoount = ({errors, handleSubmit, handleChange})=>{
+  const transferName = useSelector((state=>state.transfer))
   const dispatch = useDispatch()
+  console.log(transferName);
   return(
     <Form noValidate onSubmit={handleSubmit}>
       <Form.Group>
@@ -40,10 +42,12 @@ const AuthAmoount = ({errors, handleSubmit, handleChange})=>{
 }
 
 export const TransferInput = () => {
+  const dataName = useSelector((state=>state.transfer.name))
+  const dataPhone = useSelector((state=>state.transfer.phone))
+  const dataPhoto = useSelector((state=>state.transfer.photo))
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const transferRequest = (val) => {
-    console.log(val.amount);
     if(val.amount===''){
       window.alert('Input Amount')
     }else{
@@ -67,10 +71,10 @@ export const TransferInput = () => {
               <div className="d-flex-column wrap-receiver p-3 my-3">
                 <div className="d-flex justify-content-between align-items-center">
                   <div className="d-flex">
-                    <img src={samuel} className="img-home-prof" alt="samuel"/>
+                    <img src={dataPhoto} className="img-home-prof" alt="samuel"/>
                     <div className="d-flex-column justify-content-center ms-3">
-                      <p className="wrap-name-transfer">Samuel Suhi</p>
-                      <p  className="wrap-type">+62 813-8492-9994</p>
+                      <p className="wrap-name-transfer">{dataName}</p>
+                      <p  className="wrap-type">{dataPhone}</p>
                     </div>
                   </div>
                 </div>
