@@ -2,16 +2,21 @@ import React from 'react';
 import {FiGrid, FiPlus, FiUser, FiLogOut,FiArrowUp} from 'react-icons/fi'
 import { Col } from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom'
-import {useDispatch } from 'react-redux/es/exports'
+import {useDispatch, useSelector } from 'react-redux/es/exports'
 import { logout } from '../redux/reducer/auth';
+import { showProfile } from '../redux/asyncAction/profile';
 
 const NavBoard = () => {
+  const token = useSelector((state=>state.auth.token))
   const navigate= useNavigate()
   const dispatch = useDispatch()
   const logOut =()=>{
     dispatch(logout())
     navigate('/')
   }
+  React.useEffect(() => {
+    dispatch(showProfile(token))
+  }, []);
   return(
     <>
       <Col className="col-12 col-md-3 d-flex flex-column">
