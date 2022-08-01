@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import { Footer } from '../component/Footer'
 import { Row,Col, Form, Button } from 'react-bootstrap'
 import Header from '../component/Headers'
@@ -8,8 +8,8 @@ import { FiPhone } from 'react-icons/fi'
 import { Helmet } from 'react-helmet'
 import { Formik } from 'formik';
 import * as Yup from 'yup'
-import {useDispatch} from 'react-redux'
-import { costumPhone } from '../redux/reducer/numberPhone'
+import {useDispatch, useSelector} from 'react-redux'
+import { addPhone } from '../redux/asyncAction/phone'
 
 const phoneSchema = Yup.object().shape({
   phone: Yup.string().min(11).max(15).required('You Must Input Indonesian Phone(+62)')
@@ -38,17 +38,25 @@ export const AddNumber = () => {
   const navigate = useNavigate()
   const regExp = /[a-zA-Z]/g;
   const dispatch = useDispatch()
+  const token = useSelector((state=>state.auth.token))
+  const successmsg = useSelector((state=>state.addNumber.successmsg))
   const reqPhone = (val) => {
     console.log(val.phone[0]===0);
     if (regExp.test(val.phone)) {
       window.alert('Input Only Mobile Phone Format')
     }else if((val.phone[0]==='0'&&val.phone[1]==='8')||val.phone.includes('+62')){
-      dispatch(costumPhone(val.phone))
-      navigate('/personalInfo')
+      dispatch(addPhone({token,num_phone:val.phone}))
     }else{
       window.alert('Invalid Format Number')
     }
   }
+
+  React.useState(()=>{
+    if (successmsg) {
+      window.alert(successmsg)
+      navigate('/profileInfo')
+    }
+  },[successmsg])
   return (
     <>
       <Helmet>
