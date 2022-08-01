@@ -1,12 +1,12 @@
 import React from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap'
 import { Footer } from '../component/Footer'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
-import samuel from '../assets/images/samuel.png'
 import { Helmet } from 'react-helmet'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
+import {transfer} from '../redux/asyncAction/transfer'
 import { Formik } from 'formik';
 import * as Yup from 'yup'
 
@@ -20,7 +20,6 @@ const pinSchema = Yup.object().shape({
 })
 
 const AuthPin = ({errors,handleSubmit,handleChange}) => {
-  const navigate = useNavigate()
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -48,7 +47,7 @@ const AuthPin = ({errors,handleSubmit,handleChange}) => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button name='button-cancel' onClick={()=>navigate('/statusFailed')} className='auth-button' type='submit'>Cancel</Button>
+          {/* <Button name='button-cancel' onClick={()=>navigate('/statusFailed')} className='auth-button' type='submit'>Cancel</Button> */}
           <Button name='button-confirm' className='auth-button' type='submit'>Confirm</Button>
         </Modal.Footer>
       </Form>
@@ -57,7 +56,16 @@ const AuthPin = ({errors,handleSubmit,handleChange}) => {
 }
 
 const MyModal = (props) => {
+  const dispatch = useDispatch()
+  const receiver = useSelector((state=>state.transfer.receiver))
+  const amount = useSelector((state=>state.amount.value))
+  const notes = useSelector((state=>state.notes.value))
+  const time = useSelector((state=>state.transfer.date))
+  const token = useSelector((state=>state.auth.token))
   const navigate = useNavigate()
+  const success = useSelector((state=>state.transfer.successmsg))
+  const failed = useSelector((state=>state.transfer.errormsg))
+  
   const pinRequest = (val) => {
     const pin = val.pin1+val.pin2+val.pin3+val.pin4+val.pin5+val.pin6
     const regExp = /^\d+$/;
@@ -65,12 +73,18 @@ const MyModal = (props) => {
       if (pin.length!==6) {
         window.alert('Pin Should Have 6 Digit')
       }else{
-        navigate('/statusSuccess')
+        dispatch(transfer({token,receiver,amount,notes,time,pin}))
       }
     }else{
       window.alert('Input Only Number')
     }
   }
+
+  React.useEffect(()=>{
+    if (success) {
+      navigate('/statusSuccess')
+    }
+  },[navigate,success,failed])
   return(
     <>
       <Helmet>
@@ -129,7 +143,7 @@ export const TransferPinConfirm = () => {
                   <div className="d-flex">
                     <div className="d-flex-column justify-content-center ms-3">
                       <p  className="wrap-type-confirm mb-1">Amount</p>
-                      <p className="wrap-name-confirm">Rp{amount}</p>
+                      <p className="wrap-name-confirm">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(parseInt(amount))}</p>
                     </div>
                   </div>
                 </div>

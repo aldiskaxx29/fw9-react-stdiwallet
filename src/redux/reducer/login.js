@@ -1,20 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { login } from '../asyncAction/login';
+// import { createSlice } from '@reduxjs/toolkit';
+// import { login } from '../asyncAction/login';
 
-const initialValue = {
-  user:null
-}
+// const initialState = {
+//   user:''
+// }
 
-export const profile = createSlice({
-  name:'user',
-  initialValue,
-  reducers:{},
-  extraReducers:(build)=>{
-    build.addCase(login.fulfilled,(state,action)=>{
-      state.user=action.payload
-    })
-  }
-})
+// export const loginSlice = createSlice({
+//   name:'login',
+//   initialState,
+//   reducers:{
+//     logout: (state) => {
+//       localStorage.removeItem('token');
+//       return initialState;
+//     }
+//   },
+//   extraReducers:(build)=>{
+//     build.addCase(login.fulfilled,(state,action)=>{
+//       state.user=action.payload
+//     })
+//   }
+// })
 
-export {login}
-export default profile.reducer
+// export {login}
+// export const {logout} = loginSlice.actions
+// export default loginSlice.reducer

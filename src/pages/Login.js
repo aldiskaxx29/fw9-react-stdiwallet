@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { login } from '../redux/asyncAction/auth';
+import { loginemail } from '../redux/reducer/profile';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email address format').required('Required'),
@@ -63,6 +64,7 @@ const Login = () => {
     if(val.email===''&&val.password===''){
       window.alert('Write Your Email and Password')
     }else{
+      dispatch(loginemail(val.email))
       dispatch(login(request))
     }
   }

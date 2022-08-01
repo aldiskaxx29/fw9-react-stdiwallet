@@ -71,7 +71,7 @@ export const Home = () => {
                   <div className='wrap-details d-flex justify-content-between'>
                     <div className="wrap-info">
                       <p>Balance</p>
-                      {data.result&&data.result.map((val)=>{
+                      {data?.result?.map((val)=>{
                         dispatch(balance(val.balance))
                         return(
                           <>

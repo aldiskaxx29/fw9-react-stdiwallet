@@ -11,7 +11,6 @@ import * as Yup from 'yup'
 import {useDispatch, useSelector} from 'react-redux'
 import { costumAmount } from '../redux/reducer/amount'
 import {costumNotes} from '../redux/reducer/notes'
-import { transfer } from '../redux/asyncAction/transfer'
 import { costumDateTransfer } from '../redux/reducer/transfer'
 
 const amountSchema = Yup.object().shape({
@@ -50,14 +49,13 @@ export const TransferInput = () => {
   const dataTime = new Date().toISOString()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  console.log(dataTime);
   const transferRequest = (val) => {
     if(val.amount===''){
       window.alert('Input Amount')
     }else{
       dispatch(costumAmount(val.amount))
       dispatch(costumDateTransfer(dataTime))
-      navigate('')
+      navigate('/pinConfirm')
     }
   }
   return (

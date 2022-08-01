@@ -11,6 +11,7 @@ import { showProfile } from '../redux/asyncAction/profile'
 export const PersonalInfo = () => {
   const data = useSelector((state=>state.profile.value))
   const token = useSelector((state=>state.auth.token))
+  const email = useSelector((state=>state.profile.email))
   const dispatch = useDispatch()
   React.useEffect(()=>{
     dispatch(showProfile(token))
@@ -27,9 +28,9 @@ export const PersonalInfo = () => {
           <NavBoard/>
           <Col md={9} className='d-flex flex-column mt-3'>
             {data.result&&data.result.map((val)=>{
-              const firstname = val.first_name.split(' ').map(str =>str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()).join(' ')
-              const lastname = val.last_name.split(' ').map(str =>str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()).join(' ')
-              const phone = val.num_phone.split('')
+              const firstname = val.first_name?.split(' ').map(str =>str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()).join(' ')
+              const lastname = val.last_name?.split(' ').map(str =>str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()).join(' ')
+              const phone = val.num_phone?.split('')
               return(
                 <>
                   <div className='wrap-right-el d-flex-column px-3 px-md-4 pt-3 pt-md-4'>
@@ -60,7 +61,7 @@ export const PersonalInfo = () => {
                         <div className="d-flex">
                           <div className="d-flex-column justify-content-center ms-1">
                             <p  className="wrap-text mb-2">Verified E-mail</p>
-                            <p className="wrap-name-confirm">pewdiepie1@gmail.com</p>
+                            <p className="wrap-name-confirm">{email}</p>
                           </div>
                         </div>
                       </div>

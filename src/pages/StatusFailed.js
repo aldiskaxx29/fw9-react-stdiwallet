@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import { Button, Col, Row } from 'react-bootstrap'
+import { Alert, Button, Col, Row } from 'react-bootstrap'
 import { Footer } from '../component/Footer'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
@@ -12,8 +12,12 @@ export const StatusFailed = () => {
   const dataName = useSelector((state=>state.transfer.name))
   const dataPhone = useSelector((state=>state.transfer.phone))
   const dataPhoto = useSelector((state=>state.transfer.photo))
+  const dataDate = useSelector((state=>state.transfer.date))
+  const balance = useSelector((state=>state.profile.balance))
   const amount = useSelector((state=>state.amount.value))
   const notes = useSelector((state=>state.notes.value))
+  const errormsg = useSelector((state=>state.transfer.errormsg))
+  console.log(errormsg);
   return (
     <>
       <Helmet>
@@ -36,7 +40,7 @@ export const StatusFailed = () => {
                   <div className="d-flex">
                     <div className="d-flex-column justify-content-center ms-3">
                       <p  className="wrap-type-confirm mb-1">Amount</p>
-                      <p className="wrap-name-confirm">Rp{amount}</p>
+                      <p className="wrap-name-confirm">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(parseInt(amount))}</p>
                     </div>
                   </div>
                 </div>
@@ -46,7 +50,7 @@ export const StatusFailed = () => {
                   <div className="d-flex">
                     <div className="d-flex-column justify-content-center ms-3">
                       <p  className="wrap-type-confirm mb-1">Balance Left</p>
-                      <p className="wrap-name-confirm">Rp20.000</p>
+                      <p className="wrap-name-confirm">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(parseInt(balance))}</p>
                     </div>
                   </div>
                 </div>
@@ -56,7 +60,7 @@ export const StatusFailed = () => {
                   <div className="d-flex">
                     <div className="d-flex-column justify-content-center ms-3">
                       <p  className="wrap-type-confirm mb-1">Date & Time</p>
-                      <p className="wrap-name-confirm">May 11, 2020 - 12.20</p>
+                      <p className="wrap-name-confirm">{dataDate}</p>
                     </div>
                   </div>
                 </div>

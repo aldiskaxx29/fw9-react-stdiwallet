@@ -1,22 +1,85 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { Footer } from '../component/Footer'
-import { Row,Col } from 'react-bootstrap'
+import { Row,Col, Modal, Form, Button } from 'react-bootstrap'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
-import profile from '../assets/images/Rectangle 25.png'
 import { FiArrowRight, FiEdit2 } from 'react-icons/fi'
 import { Helmet } from 'react-helmet'
 import {useDispatch, useSelector } from 'react-redux/es/exports'
-import { showProfile } from '../redux/asyncAction/profile'
+import { editprofile, showProfile } from '../redux/asyncAction/profile'
+import http from '../helpers/http'
+import { Formik } from 'formik'
+
+const FormUpdate=({erros,handleSubmit,handleChange,handleFileSelect})=>{
+  const data = useSelector((state=>state.profile.value))
+  return(
+    <>
+      <Form onSubmit={handleSubmit}>
+        {data?.result?.map((val)=>{
+          return(
+            <>
+              <Modal.Body>
+                <p className='wrap-text'>Input Your Name and Upload Your Profile</p>
+                <div className="d-flex flex-column justify-content-around wrapper-pin mw-100 gap-2 mt-5">
+                  <div className="d-flex auth-border-pin">
+                    <Form.Control name='first_name' onChange={handleChange} placeholder={val.first_name}/>
+                  </div>
+                  <div className="d-flex auth-border-pin">
+                    <Form.Control name='last_name' onChange={handleChange} placeholder={val.last_name}/>
+                  </div>
+                  <div className="d-flex auth-border-pin">
+                    <Form.Control type='file' name='profile_photo' onChange={handleFileSelect}/>
+                  </div>
+                </div>
+                <br/>
+              </Modal.Body>
+            </>
+          )
+        })}
+        <Modal.Footer>
+          <Button name='button-confirm' className='auth-button' type='submit'>Confirm</Button>
+        </Modal.Footer>
+      </Form>
+    </>
+  )
+}
+
+const MyModal = (props) => {
+  const token = useSelector((state=>state.auth.token))
+  const dispatch = useDispatch()
+  const setProfile = (val) =>{
+    const first_name = val.first_name
+    const last_name = val.last_name
+    const photo = val.profile_photo
+    console.log(photo);
+    dispatch(editprofile({token,first_name,last_name,photo}))
+  }
+  return(
+    <>
+      <Modal {...props} aria-labelledby="modal-pin" centered className='mx-auto'>
+        <Modal.Header closeButton>
+          <Modal.Title id="modal-pin" className='wrap-title'>
+                Enter Your Data
+          </Modal.Title>
+        </Modal.Header>
+        <Formik onSubmit={setProfile} initialValues={{first_name:'',last_name:'',profile_photo:''}}>
+          {(props)=><FormUpdate{...props}/>}
+        </Formik>
+      </Modal>    
+    </>
+  )
+}
 
 export const Profile = () => {
   const data = useSelector((state=>state.profile.value))
   const token = useSelector((state=>state.auth.token))
+  const successmsg = useSelector((state=>state.profile.successmsg))
   const dispatch = useDispatch()
+  const [show, setShow] =React.useState(false);
   React.useEffect(()=>{
     dispatch(showProfile(token))
-  },[])
+  },[successmsg])
   return (
     <>
       <Helmet>
@@ -30,14 +93,16 @@ export const Profile = () => {
           <Col md={9} className='d-flex flex-column mt-3'>
             <div className='wrap-right-el d-flex-column px-3 px-md-4 pt-3 pt-md-4'>
               <div className="w-100 text-center my-3 my-md-5">
-                {data.result&&data.result.map((val)=>{
-                  const urlImage=`http://localhost:3333/public/uploadProfile/${val.profile_photo}`
+                {data?.result?.map((val)=>{
+                  const urlImage=`${http()}/public/uploadProfile/${val.profile_photo}`
                   return(
                     <>
                       <img src={urlImage} className='img-home-prof img-fluid' alt="profile"/>
-                      <p className="wrap-text my-2"><FiEdit2 className='me-2 wrap-text'/>Edit</p>    
-                      <p className="wrap-name-profile mt-4">{val.first_name+' '+val.last_name}</p>
-                      <p className="mx-5 wrap-text">{val.num_phone}</p>
+                      <div onClick={()=>setShow(true)}>
+                        <p className="wrap-text my-2"><FiEdit2 className='me-2 wrap-text'/>Edit</p>    
+                        <p className="wrap-name-profile mt-4">{val.first_name+' '+val.last_name}</p>
+                        <p className="mx-5 wrap-text">{val.num_phone}</p>
+                      </div>
                     </>
                   )
                 })}
@@ -78,6 +143,7 @@ export const Profile = () => {
         </Row>
       </section>
       <Footer/>
+      <MyModal show={show} onHide={()=>setShow(false)}/>
     </>
   )
 }

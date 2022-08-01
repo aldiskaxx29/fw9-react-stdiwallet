@@ -4,10 +4,12 @@ import { Footer } from '../component/Footer'
 import { Row,Col } from 'react-bootstrap'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
-import { FiTrash } from 'react-icons/fi'
+import { FiPlus, FiTrash } from 'react-icons/fi'
 import { Helmet } from 'react-helmet'
+import { useSelector } from 'react-redux'
 
 export const ManagePhone = () => {
+  const dataPhone = useSelector((state=>state.transfer.phone))
   return (
     <>
       <Helmet>
@@ -27,12 +29,15 @@ export const ManagePhone = () => {
                   <div className="d-flex">
                     <div className="d-flex-column justify-content-center ms-1">
                       <p  className="wrap-text mb-2">Phone Number</p>
-                      <p className="wrap-name-confirm">+62 813-9387-7946</p>
+                      <p className="wrap-name-confirm">{dataPhone}</p>
                     </div>
                   </div>
-                  <Link className="wrap-text" to='/addNumber'>
+                  {dataPhone&&<Link className="wrap-text" to='/addNumber'>
                     <FiTrash />
-                  </Link>
+                  </Link>}
+                  {dataPhone||<Link className="wrap-text" to='/addNumber'>
+                    <FiPlus />
+                  </Link>}
                 </div>
               </div>
             </div>
