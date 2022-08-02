@@ -8,6 +8,7 @@ import history from './history'
 import getAllProfile from './getAllProfile'
 import transfer from './transfer'
 import addNumber from './addNumber'
+import counter from './counter'
 
 const reducer = combineReducers({
   amount,
@@ -18,7 +19,8 @@ const reducer = combineReducers({
   history,
   getAllProfile,
   transfer,
-  addNumber
+  addNumber,
+  counter
 })
 
 export default reducer

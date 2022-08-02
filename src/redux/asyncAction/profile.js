@@ -4,8 +4,7 @@ import qs from 'qs'
 import http from '../../helpers/http';
 
 export const showProfile = createAsyncThunk('profile/showProfile',async(token)=>{
-  const auth = token
-  const {data} = await axios.get('http://localhost:3333/profile',{headers: { Authorization:'Bearer ' + auth}})
+  const {data} = await axios.get('http://localhost:3333/profile',{headers: { Authorization:'Bearer ' + token}})
   return data
 })
 

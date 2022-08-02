@@ -11,8 +11,11 @@ export const history = createSlice({
   initialState,
   reducers:{},
   extraReducers:(build)=>{
+    build.addCase(showHistory.pending,(state)=>{
+      state.value={}
+    })
     build.addCase(showHistory.fulfilled,(state,action)=>{
-      state.value=action.payload
+      state.value={...action.payload}
     })
   }
 })

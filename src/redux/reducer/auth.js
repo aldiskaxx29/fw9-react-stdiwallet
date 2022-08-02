@@ -12,9 +12,9 @@ export const auth = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logout: (state) => {
+    logout: (state,action) => {
       localStorage.removeItem('token');
-      return initialState;
+      state.token=null
     },
     costumeEmail:(state,action)=>{
       state.email=action.payload
