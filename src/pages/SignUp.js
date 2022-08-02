@@ -11,25 +11,20 @@ import { register } from '../redux/asyncAction/auth';
 import { costumeEmail } from '../redux/reducer/auth';
 
 const signupSchema = Yup.object().shape({
-  username: Yup.string().min(4).required('Required'),
+  username: Yup.string().min(5).required('Required'),
   email: Yup.string().email('Invalid email address format').required('Required'),
   password: Yup.string().min(8).required('Required')
 })
 
 const AuthSignUp = ({errors,handleChange,handleSubmit}) => {
   const navigate = useNavigate()
-  const error = useSelector((state=>state.auth.errormsg))
   const success = useSelector((state=>state.auth.successmsg))
 
-  if (error) {
-    window.alert(error)
-  }
-  
   React.useEffect(()=>{
     if(success){
       navigate('/createPin',{state:{success}})
     }
-  },[success,navigate])
+  },[success])
   let lock = true
   lock = errors.email!==undefined||errors.password!==undefined||errors.username!==undefined
   return(

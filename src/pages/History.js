@@ -1,13 +1,14 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
-import { Col, Form, Row } from 'react-bootstrap'
-import { FiSearch } from 'react-icons/fi'
+import { Button, Col, Form, Row } from 'react-bootstrap'
+import defaultimg from '../assets/images/default.png'
 import { Footer } from '../component/Footer'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
 import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 import { showHistory } from '../redux/asyncAction/history'
+import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'
+import { decrement, increment } from '../redux/reducer/counter'
 
 class DataDynamic extends React.Component {
   render() {
@@ -17,15 +18,15 @@ class DataDynamic extends React.Component {
         <div className="d-flex-column wrap-receiver p-3 my-3">
           <div className="d-flex justify-content-between align-items-center">
             <div className="d-flex">
-              <img src={urlImage} className="img-home-prof rounded" alt="samuel"/>
+              <img src={this.props.photo?urlImage:defaultimg} className="img-home-prof rounded" alt="samuel"/>
               <div className="d-flex-column justify-content-center ms-3">
                 <p className="wrap-name-transfer">{this.props.name}</p>
                 <p  className="wrap-type">{this.props.transaction}</p>
               </div>
             </div>
-            {this.props.sender?
-              <p className="history-espense">-Rp{this.props.amount}</p>:
-              <p className="history-income">+Rp{this.props.amount}</p>}
+            {this.props.receiver===this.props.userid?
+              <p className="history-income">+Rp{this.props.amount}</p>:
+              <p className="history-espense">-Rp{this.props.amount}</p>}
           </div>
         </div>
       </>
@@ -35,6 +36,11 @@ class DataDynamic extends React.Component {
 
 
 class Transfer extends React.Component {
+  componentDidUpdate(prevProps){
+    if(prevProps.pages!==this.props.pages){
+      this.props.data({token:this.props.token,pages:this.props.pages})
+    }
+  }
   render(){
     return (
       <>
@@ -49,12 +55,16 @@ class Transfer extends React.Component {
             <Col md={9} className='d-flex flex-column mt-3'>
               <div className='wrap-right-el d-flex-column px-3 px-md-4 pt-3 pt-md-4'>
                 <h1 className="wrap-title">Transaction History</h1>
-                <p className="wrap-text mt-2 mt-md-3 mb-3 mb-md-5">This Week</p>
-                {this.props.value.result&&this.props.value.result.map((val,index)=>{
+                <p className="wrap-text mt-2 mt-md-3 mb-3 mb-md-5"></p>
+                {this.props.history?.result?.map((val,index)=>{
                   return(
-                    <DataDynamic key={index} name={val.sender_id?val.receiver_id:val.notes} transaction={val.transfertype} amount={val.amount} sender={val.sender_id}/>
+                    <DataDynamic key={index} receiver={val.receiver_id} name={val.sender_id?val.first_name+' '+val.last_name:val.notes} transaction={val.transfertype} amount={val.amount} sender={val.sender_id} photo={val.profile_photo} userid={val.user_id}/>
                   )
                 })}
+                <div className='d-flex justify-content-around m-3'>
+                  <Button className='auth-button m-0' onClick={()=>this.props.decrement()}><FiArrowLeft/></Button>
+                  <Button className='auth-button m-0' onClick={()=>this.props.increment()}><FiArrowRight/></Button>
+                </div>
               </div>
             </Col>
           </Row>
@@ -66,11 +76,16 @@ class Transfer extends React.Component {
 }
 
 const mapStateToProps = (state) =>({
-  value: state.history.value
+  history: state.history.value,
+  profile: state.profile.value,
+  pages: state.counter.num,
+  token: state.auth.token
 });
 
 const mapDispatchToProps = (dispatch)=>({
-  data: dispatch(showHistory())
+  data:({token,pages})=> dispatch(showHistory({token,pages})),
+  increment: () => dispatch(increment()),
+  decrement: () => dispatch(decrement())
 });
 
 export default connect (mapStateToProps,mapDispatchToProps)(Transfer)

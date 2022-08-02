@@ -2,7 +2,7 @@ import React from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { FiArrowUp, FiPlus } from 'react-icons/fi'
 import graph from '../assets/images/graphic.png'
-import samuel from '../assets/images/samuel.png'
+import defaultimg from '../assets/images/default.png'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
 import { Footer } from '../component/Footer'
@@ -14,9 +14,11 @@ import { showHistory } from '../redux/asyncAction/history'
 import { showAllProfile } from '../redux/asyncAction/getAllProfile'
 import { balance } from '../redux/reducer/profile'
 
-const DataDynamic = ({name,transaction,amount,sender}) => {
+const DataDynamic = ({name,transaction,amount,receiver,sender,photo,userid}) => {
   const data = useSelector((state=>state.getAllProfile.value))
   const dispatch = useDispatch()
+  const urlImage=`http://localhost:3333/public/uploadProfile/${photo}`
+  console.log(transaction);
   React.useEffect(()=>{
     dispatch(showAllProfile())
   },[])
@@ -25,21 +27,15 @@ const DataDynamic = ({name,transaction,amount,sender}) => {
     <>
       <div className="d-flex justify-content-between align-items-center mt-2 mt-md-5">
         <div className="d-flex justify-content-center">
-          <img src={samuel} className="img-home-prof img-fluid" alt="samuel"/>
+          <img src={photo?urlImage:defaultimg} className="img-home-prof img-fluid" alt="samuel"/>
           <div className="d-flex-column justify-content-center mx-3">
-            {data?.result?.map((val)=>{
-              return(
-                <>
-                  <p className="wrap-name-transfer">{val.user_id===name&&val.first_name+' '+val.last_name}</p>
-                </>
-              )
-            })}
+            <p className="wrap-name-transfer">{name}</p>
             <p  className="wrap-type">{transaction}</p>
           </div>
         </div>
-        {sender?
-          <p className="history-espense">-Rp{amount}</p>:
-          <p className="history-income">+Rp{amount}</p>}
+        {receiver===userid?
+          <p className="history-income">+Rp{amount}</p>:
+          <p className="history-espense">-Rp{amount}</p>}
       </div>
     </>
   )
@@ -52,7 +48,7 @@ export const Home = () => {
   const dispatch = useDispatch()
   React.useEffect(()=>{
     dispatch(showProfile(token))
-    dispatch(showHistory(token))
+    dispatch(showHistory({token}))
   },[])
   return (
     <>
@@ -126,7 +122,7 @@ export const Home = () => {
                   {dataHistory?.result?.map((val,index)=>{
                     return(
                       <>
-                        <DataDynamic key={index} name={val.receiver_id!==67?val.receiver_id:val.notes} transaction={val.transfertype} amount={val.amount} sender={val.sender_id}/>
+                        <DataDynamic key={index} receiver={val.receiver_id} name={val.sender_id?val.first_name+' '+val.last_name:val.notes} transaction={val.transfertype} amount={val.amount} sender={val.sender_id} photo={val.profile_photo} userid={val.user_id}/>
                       </>
                     )
                   })}

@@ -27,7 +27,7 @@ export const PersonalInfo = () => {
         <Row className='px-2 px-md-5 mx-md-5'>
           <NavBoard/>
           <Col md={9} className='d-flex flex-column mt-3'>
-            {data.result&&data.result.map((val)=>{
+            {data?.result?.map((val)=>{
               const firstname = val.first_name?.split(' ').map(str =>str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()).join(' ')
               const lastname = val.last_name?.split(' ').map(str =>str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()).join(' ')
               const phone = val.num_phone?.split('')

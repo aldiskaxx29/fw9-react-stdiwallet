@@ -6,10 +6,19 @@ import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
 import { FiPlus, FiTrash } from 'react-icons/fi'
 import { Helmet } from 'react-helmet'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { showProfile } from '../redux/asyncAction/profile'
 
 export const ManagePhone = () => {
-  const dataPhone = useSelector((state=>state.transfer.phone))
+  const data = useSelector((state=>state.profile.value))
+  const token = useSelector((state=>state.auth.token))
+  const dispatch = useDispatch()
+  const dataPhone = data?.result?.map((val)=>{
+    return val.num_phone
+  })
+  React.useEffect(()=>{
+    dispatch(showProfile(token))
+  },[])
   return (
     <>
       <Helmet>
@@ -32,10 +41,9 @@ export const ManagePhone = () => {
                       <p className="wrap-name-confirm">{dataPhone}</p>
                     </div>
                   </div>
-                  {dataPhone&&<Link className="wrap-text" to='/addNumber'>
+                  {dataPhone?<Link className="wrap-text" to='/addNumber'>
                     <FiTrash />
-                  </Link>}
-                  {dataPhone||<Link className="wrap-text" to='/addNumber'>
+                  </Link>:<Link className="wrap-text" to='/addNumber'>
                     <FiPlus />
                   </Link>}
                 </div>

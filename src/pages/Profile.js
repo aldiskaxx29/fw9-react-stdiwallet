@@ -8,6 +8,7 @@ import { FiArrowRight, FiEdit2 } from 'react-icons/fi'
 import { Helmet } from 'react-helmet'
 import {useDispatch, useSelector } from 'react-redux/es/exports'
 import { editprofile, showProfile } from '../redux/asyncAction/profile'
+import defaultimg from '../assets/images/default.png'
 import http from '../helpers/http'
 import { Formik } from 'formik'
 
@@ -46,6 +47,7 @@ const FormUpdate=({erros,handleSubmit,handleChange,handleFileSelect})=>{
 }
 
 const MyModal = (props) => {
+  const data = useSelector((state=>state.profile.value))
   const token = useSelector((state=>state.auth.token))
   const dispatch = useDispatch()
   const setProfile = (val) =>{
@@ -63,9 +65,17 @@ const MyModal = (props) => {
                 Enter Your Data
           </Modal.Title>
         </Modal.Header>
-        <Formik onSubmit={setProfile} initialValues={{first_name:'',last_name:'',profile_photo:''}}>
-          {(props)=><FormUpdate{...props}/>}
-        </Formik>
+        {data?.result?.map((val)=>{
+          const firstname = val.first_name
+          const lastname = val.last_name
+          return(
+            <>
+              <Formik onSubmit={setProfile} initialValues={{first_name:{firstname},last_name:{lastname},profile_photo:''}}>
+                {(props)=><FormUpdate{...props}/>}
+              </Formik>
+            </>
+          )
+        })}
       </Modal>    
     </>
   )
@@ -94,10 +104,10 @@ export const Profile = () => {
             <div className='wrap-right-el d-flex-column px-3 px-md-4 pt-3 pt-md-4'>
               <div className="w-100 text-center my-3 my-md-5">
                 {data?.result?.map((val)=>{
-                  const urlImage=`${http()}/public/uploadProfile/${val.profile_photo}`
+                  const urlImage=`http://localhost:3333/public/uploadProfile/${val.profile_photo}`
                   return(
                     <>
-                      <img src={urlImage} className='img-home-prof img-fluid' alt="profile"/>
+                      <img src={val.profile_photo?urlImage:defaultimg} className='img-home-prof img-fluid' alt="profile"/>
                       <div onClick={()=>setShow(true)}>
                         <p className="wrap-text my-2"><FiEdit2 className='me-2 wrap-text'/>Edit</p>    
                         <p className="wrap-name-profile mt-4">{val.first_name+' '+val.last_name}</p>

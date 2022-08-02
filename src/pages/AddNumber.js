@@ -46,6 +46,7 @@ export const AddNumber = () => {
       window.alert('Input Only Mobile Phone Format')
     }else if((val.phone[0]==='0'&&val.phone[1]==='8')||val.phone.includes('+62')){
       dispatch(addPhone({token,num_phone:val.phone}))
+      navigate('/personalInfo')
     }else{
       window.alert('Invalid Format Number')
     }
@@ -54,7 +55,6 @@ export const AddNumber = () => {
   React.useState(()=>{
     if (successmsg) {
       window.alert(successmsg)
-      navigate('/profileInfo')
     }
   },[successmsg])
   return (

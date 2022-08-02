@@ -8,15 +8,22 @@ import { showProfile } from '../redux/asyncAction/profile';
 
 const NavBoard = () => {
   const token = useSelector((state=>state.auth.token))
+  console.log(token);
   const navigate= useNavigate()
   const dispatch = useDispatch()
   const logOut =()=>{
-    dispatch(logout())
-    navigate('/')
+    dispatch(logout(()=>{
+      navigate('/login')
+    }))
   }
   React.useEffect(() => {
-    dispatch(showProfile(token))
-  }, []);
+    if(token){
+      dispatch(showProfile(token))
+    }
+    if(!token){
+      navigate('/login')
+    }
+  }, [token]);
   return(
     <>
       <Col className="col-12 col-md-3 d-flex flex-column">
