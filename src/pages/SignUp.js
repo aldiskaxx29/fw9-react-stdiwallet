@@ -8,7 +8,7 @@ import * as Yup from 'yup'
 import { Helmet } from 'react-helmet';
 import { useSelector,useDispatch } from 'react-redux';
 import { register } from '../redux/asyncAction/auth';
-import { costumeEmail } from '../redux/reducer/auth';
+import { costumeEmail, deleteErrorAuth } from '../redux/reducer/auth';
 
 const signupSchema = Yup.object().shape({
   username: Yup.string().min(5).required('Required'),
@@ -63,7 +63,7 @@ const AuthSignUp = ({errors,handleChange,handleSubmit}) => {
 
 const SignUp = () => {
   const dispatch = useDispatch()
-  const email = useSelector((state=>state.auth.email))
+  const successmsg = useSelector((state=>state.auth.successmsg))
   const navigate = useNavigate()
   const signUpRequest = (val) => {
     const request = {username:val.username,email:val.email,password:val.password}
@@ -75,10 +75,10 @@ const SignUp = () => {
     }
   }
   React.useEffect(()=>{
-    if(email){
+    if(successmsg){
       navigate('/createPin')
     }
-  },[navigate,email])
+  },[navigate,successmsg])
   return (
     <>
       <Helmet>

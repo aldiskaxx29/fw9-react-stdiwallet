@@ -21,6 +21,12 @@ export const auth = createSlice({
     },
     resetEmail:(state,action)=>{
       state.email=''
+    },
+    deleteErrorAuth:(state,action)=>{
+      state.errormsg=null
+    },
+    deleteSuccessAuth:(state,action)=>{
+      state.successmsg=null
     }
   },
   extraReducers: (build) => {
@@ -59,5 +65,5 @@ export const auth = createSlice({
 
 export {login}
 export const {logout} = auth.actions
-export const {costumeEmail,resetEmail} = auth.actions
+export const {costumeEmail,resetEmail,deleteErrorAuth,deleteSuccessAuth} = auth.actions
 export default auth.reducer

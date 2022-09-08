@@ -8,6 +8,8 @@ import { FiLock } from 'react-icons/fi'
 import { Formik } from 'formik';
 import * as Yup from 'yup'
 import { Helmet } from 'react-helmet'
+import { useDispatch,useSelector } from 'react-redux'
+import { changePassword } from '../redux/asyncAction/changePassword'
 
 const passwordSchema = Yup.object().shape({
   currentpassword:Yup.string().required('Required'),
@@ -55,12 +57,18 @@ const AuthPassword = ({errors,handleChange,handleSubmit}) =>{
 }
 
 export const ChangePassword = () => {
+  const dispatch = useDispatch
   const navigate = useNavigate()
+  const token = useSelector((state=>state.auth.token))
   const changePasswordRequest = (val) => {
+    const currentpassword = val.currentpassword
+    const password = val.password
+    const newpassword = val.newpassword
     if(val.newpassword!==val.password){
       window.alert('New Password Not Match')
     }else{
-      navigate('/profile',{replace: true})
+      dispatch(changePassword({token,currentpassword,password,newpassword}))
+      navigate('/profile')
     }
   }
   return (

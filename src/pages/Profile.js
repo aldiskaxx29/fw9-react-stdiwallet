@@ -9,7 +9,6 @@ import { Helmet } from 'react-helmet'
 import {useDispatch, useSelector } from 'react-redux/es/exports'
 import { editprofile, showProfile } from '../redux/asyncAction/profile'
 import defaultimg from '../assets/images/default.png'
-import http from '../helpers/http'
 import { Formik } from 'formik'
 
 const FormUpdate=({erros,handleSubmit,handleChange,handleFileSelect})=>{

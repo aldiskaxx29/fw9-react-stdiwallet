@@ -23,10 +23,16 @@ export const register = createAsyncThunk('profile/register', async(request)=>{
     const send = qs.stringify(request)
     const {data} = await http().post('auth/register',send,{headers: {'content-type': 'application/x-www-form-urlencoded'}})
     results.successmsg = data.massage
+    console.log(data);
     return results
   }
   catch(e){
-    results.errormsg = e.response.data.massage
+    const error = e.response.data.result
+    const errormsg = error.map((e)=>{
+      window.alert(e.msg);
+      return e.msg
+    })
+    results.errormsg = errormsg
     return results
   }
 })
