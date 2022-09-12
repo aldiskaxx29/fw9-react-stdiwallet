@@ -12,23 +12,22 @@ import {useDispatch, useSelector} from 'react-redux'
 import { costumAmount } from '../redux/reducer/amount'
 import {costumNotes} from '../redux/reducer/notes'
 import { costumDateTransfer } from '../redux/reducer/transfer'
+import defaultimg from '../assets/images/default.png'
 
 const amountSchema = Yup.object().shape({
   amount: Yup.number().min(1).required('Required'),
 })
 
 const AuthAmoount = ({errors, handleSubmit, handleChange})=>{
-  const transferName = useSelector((state=>state.transfer))
-  const balance = useSelector((state=>state.profile.balance))
+  const profile = useSelector((state=>state.profile.value))
   const dispatch = useDispatch()
-  console.log(transferName);
   return(
     <Form noValidate onSubmit={handleSubmit}>
       <Form.Group>
         <div className="w-100 wrap-input">
           <Form.Control name='amount' onChange={handleChange} type="number" className="wrap-amount text-center" placeholder='0.00' isInvalid={!!errors.amount}/>
           <Form.Control.Feedback>{errors.amount}</Form.Control.Feedback>
-          <p className="wrap-available">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(parseInt(balance))} Available</p>
+          <p className="wrap-available">{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(parseInt(profile?.balance))} Available</p>
         </div>
       </Form.Group>
       <Form.Group className="d-flex w-50 m-auto my-3 my-md-5">
@@ -74,7 +73,7 @@ export const TransferInput = () => {
               <div className="d-flex-column wrap-receiver p-3 my-3">
                 <div className="d-flex justify-content-between align-items-center">
                   <div className="d-flex">
-                    <img src={dataPhoto} className="img-home-prof" alt="samuel"/>
+                    <img src={dataPhoto||defaultimg} className="img-home-prof" alt="samuel"/>
                     <div className="d-flex-column justify-content-center ms-3">
                       <p className="wrap-name-transfer">{dataName}</p>
                       <p  className="wrap-type">{dataPhone}</p>

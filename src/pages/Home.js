@@ -12,12 +12,10 @@ import {useDispatch, useSelector } from 'react-redux/es/exports'
 import { showProfile } from '../redux/asyncAction/profile'
 import { showHistory } from '../redux/asyncAction/history'
 import { showAllProfile } from '../redux/asyncAction/getAllProfile'
-import { balance } from '../redux/reducer/profile'
 
 const DataDynamic = ({name,transaction,amount,receiver,sender,photo,userid}) => {
   const data = useSelector((state=>state.getAllProfile.value))
   const dispatch = useDispatch()
-  const urlImage=`http://localhost:3333/public/uploadProfile/${photo}`
   console.log(transaction);
   React.useEffect(()=>{
     dispatch(showAllProfile())
@@ -27,7 +25,7 @@ const DataDynamic = ({name,transaction,amount,receiver,sender,photo,userid}) => 
     <>
       <div className="d-flex justify-content-between align-items-center mt-2 mt-md-5">
         <div className="d-flex justify-content-center">
-          <img src={photo?urlImage:defaultimg} className="img-home-prof img-fluid" alt="samuel"/>
+          <img src={photo?photo:defaultimg} className="img-home-prof img-fluid" alt="samuel"/>
           <div className="d-flex-column justify-content-center mx-3">
             <p className="wrap-name-transfer">{name}</p>
             <p  className="wrap-type">{transaction}</p>
@@ -42,10 +40,10 @@ const DataDynamic = ({name,transaction,amount,receiver,sender,photo,userid}) => 
 }
 
 export const Home = () => {
+  const dispatch = useDispatch()
   const data = useSelector((state=>state.profile.value))
   const dataHistory = useSelector((state=>state.history.value))
   const token = useSelector((state=>state.auth.token))
-  const dispatch = useDispatch()
   React.useEffect(()=>{
     dispatch(showProfile(token))
     dispatch(showHistory({token}))
@@ -67,15 +65,8 @@ export const Home = () => {
                   <div className='wrap-details d-flex justify-content-between'>
                     <div className="wrap-info">
                       <p>Balance</p>
-                      {data?.result?.map((val)=>{
-                        dispatch(balance(val.balance))
-                        return(
-                          <>
-                            <h1>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(parseInt(val.balance))}</h1>
-                            <p>{val.num_phone}</p>
-                          </>
-                        )
-                      })}
+                      <h1>{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(parseInt(data?.balance||0))}</h1>
+                      <p>{data?.num_phone || 'Your Number'}</p>
                     </div>
                     <div>
                       <Link to='/transfer' className="d-flex justify-content-around align-items-center wrap-transfer mt-4 mx-3 mx-md-4">

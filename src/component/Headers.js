@@ -22,18 +22,11 @@ const Header = () => {
         </Col>
         <Col md={5}>
           <div className="d-flex justify-content-between justify-content-md-end align-items-center wrap-profile ps-3 px-md-3 mx-2 mx-md-3">
-            {data?.result?.map((val)=>{
-              const urlImage=`http://localhost:3333/public/uploadProfile/${val.profile_photo}`
-              return(
-                <>
-                  <img src={val.profile_photo?urlImage:defaultimg} className="img-home-prof img-fluid" alt="profile"/>
-                  <div className="d-flex-column justify-content-center mx-3">
-                    <p className="name-profile">{val.first_name+' '+val.last_name}</p>
-                    <p className="num-profile">{val.num_phone}</p>
-                  </div>
-                </>
-              )
-            })}
+            <img src={data?.profile_photo?data?.profile_photo:defaultimg} className="img-home-prof img-fluid" alt="profile"/>
+            <div className="d-flex-column justify-content-center mx-3">
+              <p className="name-profile">{`${data?.first_name||'Your'} ${data?.last_name||'Name'}`}</p>
+              <p className="num-profile">{data?.num_phone || 'Your Number'}</p>
+            </div>
             <Dropdown>
               <Dropdown.Toggle className="w-100 wrap-bg-button wrap-header-button" type="button">
                 <FiBell className="wrap-nav-dashboard wrap-header-button"/>

@@ -33,13 +33,12 @@ const SearchProfile = ({errors,handleChange,handleSubmit}) =>{
 }
 
 const DataDynamic = ({id,name,num_phone,photo,user_id}) => {
-  const urlImage=`http://localhost:3333/public/uploadProfile/${photo}`
   const navigate= useNavigate()
   const dispatch = useDispatch()
   const passingData = () => {
     dispatch(costumNameTransfer(name))
     dispatch(costumPhoneTransfer(num_phone))
-    dispatch(costumPhotoTransfer(urlImage))
+    dispatch(costumPhotoTransfer(photo))
     dispatch(costumReceiver(user_id))
     navigate('/transferInput')
   }
@@ -48,7 +47,7 @@ const DataDynamic = ({id,name,num_phone,photo,user_id}) => {
       <div key={id} className="d-flex-column wrap-receiver p-3 my-3">
         <div onClick={passingData} className="d-flex justify-content-between align-items-center">
           <div className="d-flex">
-            <img src={photo?urlImage:defaultimg} className="img-home-prof" alt="momotaro"/>
+            <img src={photo?photo:defaultimg} className="img-home-prof" alt="momotaro"/>
             <div className="d-flex-column justify-content-center ms-3">
               <p className="wrap-name-transfer">{name}</p>
               <p  className="wrap-type">{num_phone}</p>

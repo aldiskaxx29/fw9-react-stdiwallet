@@ -1,11 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import qs from 'qs'
 import http from '../../helpers/http';
 
 export const showProfile = createAsyncThunk('profile/showProfile',async(token)=>{
-  const {data} = await axios.get('http://localhost:3333/profile',{headers: { Authorization:'Bearer ' + token}})
-  return data
+  const results = [];
+  const {data} = await http(token).get('/profile');
+  results.data = data.result;
+  return results;
 })
 
 export const editprofile = createAsyncThunk('profile/editprofile',async({token,first_name,last_name,photo})=>{

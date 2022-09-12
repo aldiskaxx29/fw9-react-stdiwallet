@@ -1,6 +1,7 @@
 import React from 'react'
 import {Col, Row } from 'react-bootstrap'
 import { Helmet } from 'react-helmet'
+import { FiPlus } from 'react-icons/fi'
 import { Footer } from '../component/Footer'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
@@ -19,6 +20,16 @@ export const TopUp = () => {
           <Col md={9} className='d-flex flex-column mt-3'>
             <div className='wrap-right-el d-flex-column px-3 px-md-4 pt-3 pt-md-4'>
               <h1 className="wrap-title mb-3">How To Top Up</h1>
+              <div className="d-flex-column wrap-receiver p-1 p-md-3 my-3">
+                <div className="d-flex justify-content-between align-items-center">
+                  <div className="d-flex">
+                    <div className="d-flex ms-2 gap-3">
+                      <FiPlus className="d-none d-md-flex navboard-icons"/>
+                      <p className="mt-3">Your VA 33239342141324</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="d-flex-column wrap-receiver p-1 p-md-3 my-3">
                 <div className="d-flex justify-content-between align-items-center">
                   <div className="d-flex">

@@ -102,19 +102,12 @@ export const Profile = () => {
           <Col md={9} className='d-flex flex-column mt-3'>
             <div className='wrap-right-el d-flex-column px-3 px-md-4 pt-3 pt-md-4'>
               <div className="w-100 text-center my-3 my-md-5">
-                {data?.result?.map((val)=>{
-                  const urlImage=`http://localhost:3333/public/uploadProfile/${val.profile_photo}`
-                  return(
-                    <>
-                      <img src={val.profile_photo?urlImage:defaultimg} className='img-home-prof img-fluid' alt="profile"/>
-                      <div onClick={()=>setShow(true)}>
-                        <p className="wrap-text my-2"><FiEdit2 className='me-2 wrap-text'/>Edit</p>    
-                        <p className="wrap-name-profile mt-4">{val.first_name+' '+val.last_name}</p>
-                        <p className="mx-5 wrap-text">{val.num_phone}</p>
-                      </div>
-                    </>
-                  )
-                })}
+                <img src={data?.profile_photo?data.profile_photo:defaultimg} className='img-home-prof img-fluid' alt="profile"/>
+                <div onClick={()=>setShow(true)}>
+                  <p className="wrap-text my-2"><FiEdit2 className='me-2 wrap-text'/>Edit</p>    
+                  <p className="wrap-name-profile mt-4">{`${data?.first_name||'Your'} ${data?.last_name||'Name'}`}</p>
+                  <p className="mx-5 wrap-text">{data?.num_phone || 'Your Number'}</p>
+                </div>
               </div>
               <div className="d-flex-column wrap-receiver p-3 my-3 mx-auto wrap-profile-list">
                 <Link to='/personalInfo' className="d-flex justify-content-between align-items-center">

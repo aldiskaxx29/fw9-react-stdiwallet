@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { editprofile, showProfile } from '../asyncAction/profile';
 
 const initialState = {
-  value:{},
+  value:'',
   balance:{},
   email:'',
   data:{},
@@ -29,7 +29,7 @@ export const profile = createSlice({
       state.successmsg=null
     })
     build.addCase(showProfile.fulfilled,(state,action)=>{
-      state.value=action.payload
+      state.value=action.payload?.data
     })
     build.addCase(editprofile.fulfilled,(state,action)=>{
       state.data=action.payload

@@ -7,7 +7,7 @@ export const login = createAsyncThunk('profile/login', async(request)=>{
   try{
     const send = qs.stringify(request)
     const {data} = await http().post('/auth/login', send, {headers : { 'content-type': 'application/x-www-form-urlencoded'}})
-    results.token=data.result
+    results.token=data.result.token;
     console.log(data);
     return results
   }
