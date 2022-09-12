@@ -8,6 +8,7 @@ import { ChangePin } from './pages/ChangePin';
 import { ChangePinNew } from './pages/ChangePinNew';
 import CreatePin from './pages/CreatePin';
 import CreatePinSuccess from './pages/CreatePinSuccess';
+import EditProfile from './pages/EditProfile';
 import ForgotPassword from './pages/ForgotPassword';
 import ForgotPasswordInsert from './pages/ForgotPasswordInsert';
 import History from './pages/History';
@@ -94,6 +95,12 @@ const App = () => {
         <Route path="personalInfo" element={
           <PrivateRoute>
             <PersonalInfo/>
+          </PrivateRoute>
+        }/>
+        
+        <Route path="edit" element={
+          <PrivateRoute>
+            <EditProfile/>
           </PrivateRoute>
         }/>
 

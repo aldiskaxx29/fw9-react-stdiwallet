@@ -9,9 +9,7 @@ import { Helmet } from 'react-helmet'
 import { Formik } from 'formik';
 import * as Yup from 'yup'
 import {useDispatch, useSelector} from 'react-redux'
-import { costumAmount } from '../redux/reducer/amount'
-import {costumNotes} from '../redux/reducer/notes'
-import { costumDateTransfer } from '../redux/reducer/transfer'
+import { costumAmount,costumNotes,costumDateTransfer } from '../redux/reducer/transfer'
 import defaultimg from '../assets/images/default.png'
 
 const amountSchema = Yup.object().shape({

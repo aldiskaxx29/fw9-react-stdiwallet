@@ -2,19 +2,33 @@ import { createSlice } from '@reduxjs/toolkit'
 import { transfer } from '../asyncAction/transfer'
 
 const initialState = {
+  value: 0,
   receiver:'',
   name:'',
   phone: '',
   photo:'',
   date:'',
   errormsg:'',
-  successmsg:''
+  successmsg:'',
+  notes: '-',
 }
 
 export const transferSlice = createSlice({
   name: 'transfer',
   initialState,
   reducers: {
+    costumAmount: (state,action)=>{
+      state.value = parseInt(action.payload, 10)
+    },
+    resetAmount: (state)=>{
+      state.value = 0
+    },
+    costumNotes: (state,action)=>{
+      state.value = action.payload
+    },
+    resetNotes: (state)=>{
+      state.value = '-'
+    },
     costumNameTransfer: (state,action)=>{
       state.name = action.payload
     },
@@ -49,6 +63,6 @@ export const transferSlice = createSlice({
   }
 })
 
-export const {costumPhotoTransfer,costumNameTransfer,costumPhoneTransfer,costumDateTransfer,costumReceiver,resetTransfer} = transferSlice.actions
+export const {costumAmount,costumNotes,resetNotes,resetAmount,costumPhotoTransfer,costumNameTransfer,costumPhoneTransfer,costumDateTransfer,costumReceiver,resetTransfer} = transferSlice.actions
 
 export default transferSlice.reducer

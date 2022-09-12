@@ -1,6 +1,4 @@
 import {combineReducers} from '@reduxjs/toolkit'
-import amount from './amount'
-import notes from './notes'
 import phone from './numberPhone'
 import profile from './profile'
 import auth from './auth'
@@ -9,16 +7,30 @@ import getAllProfile from './getAllProfile'
 import transfer from './transfer'
 import addNumber from './addNumber'
 import counter from './counter'
+import {persistReducer} from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
+const authPersistConfig = {
+  key: 'auth',
+  storage
+}
+
+const transferPersistConfig = {
+  key: 'transfer',
+  storage
+}
+
+const persistanceAuthReducer = persistReducer(authPersistConfig,auth)
+
+const persistanceTransferReducer = persistReducer(transferPersistConfig,transfer)
 
 const reducer = combineReducers({
-  amount,
-  notes,
   phone,
-  auth,
+  auth: persistanceAuthReducer,
   profile,
   history,
   getAllProfile,
-  transfer,
+  transfer: persistanceTransferReducer,
   addNumber,
   counter
 })

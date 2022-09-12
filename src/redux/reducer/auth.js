@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import {createpin, login, register} from '../asyncAction/auth'
 
 const initialState = {
-  token:localStorage.getItem('token')||null,
+  id: '',
+  token:'',
   email:'',
   errormsg:'',
   successmsg:''
@@ -36,9 +37,10 @@ export const auth = createSlice({
     })
     build.addCase(login.fulfilled,(state,action)=>{
       const token = action.payload?.token
+      const id = action.payload?.id
       if(token){
         state.token=token
-        localStorage.setItem('token',token)
+        state.id=id
       }else{
         state.errormsg = action.payload?.errormsg
         state.successmsg = action.payload?.successmsg

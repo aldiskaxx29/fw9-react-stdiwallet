@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import { Alert, Button, Col, Row } from 'react-bootstrap'
+import { Button, Col, Row } from 'react-bootstrap'
 import { Footer } from '../component/Footer'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
@@ -14,8 +14,8 @@ export const StatusFailed = () => {
   const dataPhoto = useSelector((state=>state.transfer.photo))
   const dataDate = useSelector((state=>state.transfer.date))
   const balance = useSelector((state=>state.profile.balance))
-  const amount = useSelector((state=>state.amount.value))
-  const notes = useSelector((state=>state.notes.value))
+  const amount = useSelector((state=>state.transfer.value))
+  const notes = useSelector((state=>state.transfer.notes))
   const errormsg = useSelector((state=>state.transfer.errormsg))
   console.log(errormsg);
   return (

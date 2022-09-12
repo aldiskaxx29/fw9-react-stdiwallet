@@ -9,7 +9,6 @@ import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { login } from '../redux/asyncAction/auth';
 import { loginemail } from '../redux/reducer/profile';
-import { deleteErrorAuth } from '../redux/reducer/auth';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email address format').required('Required'),
@@ -51,12 +50,14 @@ const AuthLogin = ({errors,handleSubmit,handleChange}) =>{
 }
 
 const Login = () => {
+  const [warning,setWarning] = React.useState('')
   const dispatch = useDispatch()
   const location = useLocation()
   const navigate = useNavigate()
+  let redirect = location.state?.errormsg
   const token = useSelector((state=>state.auth.token))
   const error = useSelector((state=>state.auth.errormsg))
-  
+
   if(error){
     window.alert(error)
   }
@@ -72,16 +73,22 @@ const Login = () => {
   }
   
   React.useEffect(()=>{
+    if (warning||redirect) {
+      setTimeout(()=>setWarning(''), 3 * 1000)
+    }
+    if(redirect) {
+      setTimeout(()=>location.state.errormsg='', 3 * 1000)
+    }
     if (token) {
       navigate('/home');
     }
-  }, [navigate, token]);
+  }, [token]);
   
   return (
     <>
-      {location.state?.errormsg&&(
-        <Alert className="sticky-top text-center" variant="danger">{location.state.errormsg}</Alert>
-      )}
+      {warning||redirect?(
+        <Alert className="sticky-top text-center" variant="danger">{warning||redirect}</Alert>
+      ): null}
       <Helmet>
         <meta charSet="utf-8" />
         <title>Login</title>

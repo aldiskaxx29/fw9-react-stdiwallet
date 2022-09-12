@@ -13,8 +13,9 @@ import { showProfile } from '../redux/asyncAction/profile'
 import { showHistory } from '../redux/asyncAction/history'
 import { showAllProfile } from '../redux/asyncAction/getAllProfile'
 
-const DataDynamic = ({name,transaction,amount,receiver,sender,photo,userid}) => {
+const DataDynamic = ({name,transaction,amount,receiver,sender,photo}) => {
   const data = useSelector((state=>state.getAllProfile.value))
+  const idLogin = useSelector((state=>state.auth.id))
   const dispatch = useDispatch()
   console.log(transaction);
   React.useEffect(()=>{
@@ -31,7 +32,7 @@ const DataDynamic = ({name,transaction,amount,receiver,sender,photo,userid}) => 
             <p  className="wrap-type">{transaction}</p>
           </div>
         </div>
-        {receiver===userid?
+        {receiver==idLogin?
           <p className="history-income">+Rp{amount}</p>:
           <p className="history-espense">-Rp{amount}</p>}
       </div>
@@ -111,11 +112,13 @@ export const Home = () => {
                     </div>
                   </div>
                   {dataHistory?.result?.map((val,index)=>{
-                    return(
-                      <>
-                        <DataDynamic key={index} receiver={val.receiver_id} name={val.sender_id?val.first_name+' '+val.last_name:val.notes} transaction={val.transfertype} amount={val.amount} sender={val.sender_id} photo={val.profile_photo} userid={val.user_id}/>
-                      </>
-                    )
+                    if(index<4){
+                      return(
+                        <>
+                          <DataDynamic key={index} receiver={val.receiver_id} name={val.sender_id?val.first_name+' '+val.last_name:val.notes} transaction={val.transfertype} amount={val.amount} sender={val.sender_id} photo={val.profile_photo} userid={val.user_id}/>
+                        </>
+                      )
+                    }
                   })}
                 </div>
               </Col>

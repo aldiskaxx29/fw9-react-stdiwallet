@@ -58,8 +58,8 @@ const AuthPin = ({errors,handleSubmit,handleChange}) => {
 const MyModal = (props) => {
   const dispatch = useDispatch()
   const receiver = useSelector((state=>state.transfer.receiver))
-  const amount = useSelector((state=>state.amount.value))
-  const notes = useSelector((state=>state.notes.value))
+  const amount = useSelector((state=>state.transfer.value))
+  const notes = useSelector((state=>state.transfer.notes))
   const time = useSelector((state=>state.transfer.date))
   const token = useSelector((state=>state.auth.token))
   const navigate = useNavigate()
@@ -112,11 +112,11 @@ export const TransferPinConfirm = () => {
   const dataPhone = useSelector((state=>state.transfer.phone))
   const dataPhoto = useSelector((state=>state.transfer.photo))
   const dataDate = useSelector((state=>state.transfer.date))
-  const balance = useSelector((state=>state.profile.balance))
+  const data = useSelector((state=>state.profile.value))
   const [show, setShow] =React.useState(false);
-  const amount = useSelector((state=>state.amount.value))
-  const notes = useSelector((state=>state.notes.value))
-  const balanceleft = balance-amount
+  const amount = useSelector((state=>state.transfer.value))
+  const notes = useSelector((state=>state.transfer.notes))
+  const balanceleft = data?.balance-amount
   return (
     <>
       <Header/>

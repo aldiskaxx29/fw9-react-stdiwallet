@@ -16,27 +16,21 @@ const FormUpdate=({erros,handleSubmit,handleChange,handleFileSelect})=>{
   return(
     <>
       <Form onSubmit={handleSubmit}>
-        {data?.result?.map((val)=>{
-          return(
-            <>
-              <Modal.Body>
-                <p className='wrap-text'>Input Your Name and Upload Your Profile</p>
-                <div className="d-flex flex-column justify-content-around wrapper-pin mw-100 gap-2 mt-5">
-                  <div className="d-flex auth-border-pin">
-                    <Form.Control name='first_name' onChange={handleChange} placeholder={val.first_name}/>
-                  </div>
-                  <div className="d-flex auth-border-pin">
-                    <Form.Control name='last_name' onChange={handleChange} placeholder={val.last_name}/>
-                  </div>
-                  <div className="d-flex auth-border-pin">
-                    <Form.Control type='file' name='profile_photo' onChange={handleFileSelect}/>
-                  </div>
-                </div>
-                <br/>
-              </Modal.Body>
-            </>
-          )
-        })}
+        <Modal.Body>
+          <p className='wrap-text'>Input Your Name and Upload Your Profile</p>
+          <div className="d-flex flex-column justify-content-around wrapper-pin mw-100 gap-2 mt-5">
+            <div className="d-flex auth-border-pin">
+              <Form.Control name='first_name' onChange={handleChange} placeholder={data?.first_name}/>
+            </div>
+            <div className="d-flex auth-border-pin">
+              <Form.Control name='last_name' onChange={handleChange} placeholder={data?.last_name}/>
+            </div>
+            <div className="d-flex auth-border-pin">
+              <Form.Control type='file' name='profile_photo' onChange={handleFileSelect}/>
+            </div>
+          </div>
+          <br/>
+        </Modal.Body>
         <Modal.Footer>
           <Button name='button-confirm' className='auth-button' type='submit'>Confirm</Button>
         </Modal.Footer>
@@ -48,6 +42,8 @@ const FormUpdate=({erros,handleSubmit,handleChange,handleFileSelect})=>{
 const MyModal = (props) => {
   const data = useSelector((state=>state.profile.value))
   const token = useSelector((state=>state.auth.token))
+  const firstname = data?.first_name?.split(' ').map(str =>str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()).join(' ')
+  const lastname = data?.last_name?.split(' ').map(str =>str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()).join(' ')
   const dispatch = useDispatch()
   const setProfile = (val) =>{
     const first_name = val.first_name
@@ -64,17 +60,9 @@ const MyModal = (props) => {
                 Enter Your Data
           </Modal.Title>
         </Modal.Header>
-        {data?.result?.map((val)=>{
-          const firstname = val.first_name
-          const lastname = val.last_name
-          return(
-            <>
-              <Formik onSubmit={setProfile} initialValues={{first_name:{firstname},last_name:{lastname},profile_photo:''}}>
-                {(props)=><FormUpdate{...props}/>}
-              </Formik>
-            </>
-          )
-        })}
+        <Formik onSubmit={setProfile} initialValues={{first_name:{firstname},last_name:{lastname},profile_photo:''}}>
+          {(props)=><FormUpdate{...props}/>}
+        </Formik>
       </Modal>    
     </>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import { Alert, Button, Col, Row } from 'react-bootstrap'
+import { Button, Col, Row } from 'react-bootstrap'
 import { Footer } from '../component/Footer'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
@@ -8,8 +8,7 @@ import success from '../assets/images/success.png'
 import { FiDownload, FiShare2 } from 'react-icons/fi'
 import { Helmet } from 'react-helmet'
 import {useSelector, useDispatch} from 'react-redux'
-import { resetAmount } from '../redux/reducer/amount'
-import { resetNotes } from '../redux/reducer/notes'
+import { resetAmount,resetNotes } from '../redux/reducer/transfer'
 
 export const StatusSuccess = () => {
   const dispatch = useDispatch()
@@ -18,8 +17,8 @@ export const StatusSuccess = () => {
   const dataPhoto = useSelector((state=>state.transfer.photo))
   const dataDate = useSelector((state=>state.transfer.date))
   const balance = useSelector((state=>state.profile.balance))
-  const amount = useSelector((state=>state.amount.value))
-  const notes = useSelector((state=>state.notes.value))
+  const amount = useSelector((state=>state.transfer.value))
+  const notes = useSelector((state=>state.transfer.notes))
   const balanceleft = balance-amount
   return (
     <>
