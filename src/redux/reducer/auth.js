@@ -13,9 +13,8 @@ export const auth = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logout: (state,action) => {
-      localStorage.removeItem('token');
-      state.token=null
+    logout: () => {
+      return initialState
     },
     costumeEmail:(state,action)=>{
       state.email=action.payload
@@ -23,11 +22,9 @@ export const auth = createSlice({
     resetEmail:(state,action)=>{
       state.email=''
     },
-    deleteErrorAuth:(state,action)=>{
-      state.errormsg=null
-    },
-    deleteSuccessAuth:(state,action)=>{
-      state.successmsg=null
+    resetMsg:(state)=>{
+      state.errormsg=''
+      state.successmsg=''
     }
   },
   extraReducers: (build) => {
@@ -67,5 +64,5 @@ export const auth = createSlice({
 
 export {login}
 export const {logout} = auth.actions
-export const {costumeEmail,resetEmail,deleteErrorAuth,deleteSuccessAuth} = auth.actions
+export const {costumeEmail,resetEmail,resetMsg} = auth.actions
 export default auth.reducer

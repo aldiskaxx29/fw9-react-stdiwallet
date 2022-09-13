@@ -277,6 +277,10 @@ body{
     border-radius: 25px;
 }
 
+.sub-home{
+    min-height: 69%;
+}
+
 .wrap-right-el{
     background: #fff;
     height: 100%;

@@ -11,28 +11,31 @@ import { Helmet } from 'react-helmet'
 import {useDispatch, useSelector } from 'react-redux/es/exports'
 import { showProfile } from '../redux/asyncAction/profile'
 import { showHistory } from '../redux/asyncAction/history'
-import { showAllProfile } from '../redux/asyncAction/getAllProfile'
 
-const DataDynamic = ({name,transaction,amount,receiver,sender,photo}) => {
-  const data = useSelector((state=>state.getAllProfile.value))
+const DataDynamic = ({name,transaction,amount,receiver,namerec,photorec,photo}) => {
+  const data = useSelector((state=>state.profile.value))
   const idLogin = useSelector((state=>state.auth.id))
-  const dispatch = useDispatch()
-  console.log(transaction);
-  React.useEffect(()=>{
-    dispatch(showAllProfile())
-  },[])
-  console.log(data);
   return(
     <>
       <div className="d-flex justify-content-between align-items-center mt-2 mt-md-5">
         <div className="d-flex justify-content-center">
-          <img src={photo?photo:defaultimg} className="img-home-prof img-fluid" alt="samuel"/>
-          <div className="d-flex-column justify-content-center mx-3">
-            <p className="wrap-name-transfer">{name}</p>
-            <p  className="wrap-type">{transaction}</p>
-          </div>
+          {idLogin===receiver?
+            <>
+              <img src={photo?photo:defaultimg} className="img-home-prof img-fluid" alt="samuel"/>
+              <div className="d-flex-column justify-content-center mx-3">
+                <p className="wrap-name-transfer">{name||data.first_name + data.last_name}</p>
+                <p  className="wrap-type">{transaction}</p>
+              </div>
+            </>:<>
+              <img src={photorec?photorec:defaultimg} className="img-home-prof img-fluid" alt="samuel"/>
+              <div className="d-flex-column justify-content-center mx-3">
+                <p className="wrap-name-transfer">{namerec}</p>
+                <p  className="wrap-type">{transaction}</p>
+              </div>
+            </>
+          }
         </div>
-        {receiver==idLogin?
+        {receiver===idLogin?
           <p className="history-income">+Rp{amount}</p>:
           <p className="history-espense">-Rp{amount}</p>}
       </div>
@@ -60,7 +63,7 @@ export const Home = () => {
         <Row className='px-2 px-md-5 mx-md-5'>
           <NavBoard/>
           <Col className='col-12 col-md-9'>
-            <Row>
+            <Row className='h-100'>
               <Col className='col-12'>
                 <div className='wrap-balance mt-3'>
                   <div className='wrap-details d-flex justify-content-between'>
@@ -82,7 +85,7 @@ export const Home = () => {
                   </div>
                 </div>
               </Col>
-              <Col md={7} className="mt-3">
+              <Col md={7} className="mt-3 sub-home">
                 <div className="wrap-grap">
                   <div className="d-flex justify-content-between">
                     <div className="wrap-income mt-3 mt-md-4 mx-3 mx-md-4">
@@ -115,7 +118,7 @@ export const Home = () => {
                     if(index<4){
                       return(
                         <>
-                          <DataDynamic key={index} receiver={val.receiver_id} name={val.sender_id?val.first_name+' '+val.last_name:val.notes} transaction={val.transfertype} amount={val.amount} sender={val.sender_id} photo={val.profile_photo} userid={val.user_id}/>
+                          <DataDynamic key={index} receiver={val.receiver_id} name={val.first_name+' '+val.last_name} namerec={val.firstnamerec+' '+val.lastnamerec} transaction={val.transfertype} amount={val.amount} sender={val.sender_id} photo={val.profile_photo} photorec={val.photorec} userid={val.user_id} />
                         </>
                       )
                     }

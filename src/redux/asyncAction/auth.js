@@ -8,6 +8,7 @@ export const login = createAsyncThunk('profile/login', async(request)=>{
     const send = qs.stringify(request)
     const {data} = await http().post('/auth/login', send, {headers : { 'content-type': 'application/x-www-form-urlencoded'}})
     results.token=data.result.token;
+    results.id=data.result.id;
     console.log(data);
     return results
   }

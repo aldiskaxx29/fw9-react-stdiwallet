@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Col, Form, Row } from 'react-bootstrap'
+import { Button, Col, Row } from 'react-bootstrap'
 import defaultimg from '../assets/images/default.png'
 import { Footer } from '../component/Footer'
 import Header from '../component/Headers'
@@ -12,19 +12,28 @@ import { decrement, increment } from '../redux/reducer/counter'
 
 class DataDynamic extends React.Component {
   render() {
-    const urlImage=`http://localhost:3333/public/uploadProfile/${this.props.photo}`
     return (
       <>
         <div className="d-flex-column wrap-receiver p-3 my-3">
           <div className="d-flex justify-content-between align-items-center">
             <div className="d-flex">
-              <img src={this.props.photo?urlImage:defaultimg} className="img-home-prof rounded" alt="samuel"/>
-              <div className="d-flex-column justify-content-center ms-3">
-                <p className="wrap-name-transfer">{this.props.name}</p>
-                <p  className="wrap-type">{this.props.transaction}</p>
-              </div>
+              {this.props.loginUser===this.props.receiver?
+                <>
+                  <img src={this.props.photo?this.props.photo:defaultimg} className="img-home-prof img-fluid" alt="samuel"/>
+                  <div className="d-flex-column justify-content-center mx-3">
+                    <p className="wrap-name-transfer">{this.props.name.includes('null') ? this.props.namerec : this.props.name}</p>
+                    <p  className="wrap-type">{this.props.transaction}</p>
+                  </div>
+                </>:<>
+                  <img src={this.props.photorec?this.props.photorec:defaultimg} className="img-home-prof img-fluid" alt="samuel"/>
+                  <div className="d-flex-column justify-content-center mx-3">
+                    <p className="wrap-name-transfer">{this.props.namerec}</p>
+                    <p  className="wrap-type">{this.props.transaction}</p>
+                  </div>
+                </>
+              }
             </div>
-            {this.props.receiver===this.props.userid?
+            {this.props.receiver===this.props.loginUser?
               <p className="history-income">+Rp{this.props.amount}</p>:
               <p className="history-espense">-Rp{this.props.amount}</p>}
           </div>
@@ -58,7 +67,7 @@ class Transfer extends React.Component {
                 <p className="wrap-text mt-2 mt-md-3 mb-3 mb-md-5"></p>
                 {this.props.history?.result?.map((val,index)=>{
                   return(
-                    <DataDynamic key={index} receiver={val.receiver_id} name={val.sender_id?val.first_name+' '+val.last_name:val.notes} transaction={val.transfertype} amount={val.amount} sender={val.sender_id} photo={val.profile_photo} userid={val.user_id}/>
+                    <DataDynamic data={this.props.profile} loginUser={this.props.id} key={index} receiver={val.receiver_id} name={val.first_name+' '+val.last_name} namerec={val.firstnamerec+' '+val.lastnamerec} transaction={val.transfertype} amount={val.amount} sender={val.sender_id} photo={val.profile_photo} photorec={val.photorec} userid={val.user_id}/>
                   )
                 })}
                 <div className='d-flex justify-content-around m-3'>
@@ -79,7 +88,8 @@ const mapStateToProps = (state) =>({
   history: state.history.value,
   profile: state.profile.value,
   pages: state.counter.num,
-  token: state.auth.token
+  token: state.auth.token,
+  id: state.auth.id
 });
 
 const mapDispatchToProps = (dispatch)=>({
