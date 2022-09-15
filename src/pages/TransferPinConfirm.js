@@ -1,6 +1,6 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap'
+import { Alert, Button, Col, Form, Modal, Row } from 'react-bootstrap'
 import { Footer } from '../component/Footer'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
@@ -8,7 +8,9 @@ import { Helmet } from 'react-helmet'
 import {useDispatch, useSelector} from 'react-redux'
 import {transfer} from '../redux/asyncAction/transfer'
 import { Formik } from 'formik';
+import defaultimg from '../assets/images/default.png'
 import * as Yup from 'yup'
+import { resetMsgTF } from '../redux/reducer/transfer'
 
 const pinSchema = Yup.object().shape({
   pin1: Yup.string().min(1).max(1).required(),
@@ -57,15 +59,17 @@ const AuthPin = ({errors,handleSubmit,handleChange}) => {
 
 const MyModal = (props) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const data = useSelector((state=>state.profile.value))
   const receiver = useSelector((state=>state.transfer.receiver))
   const amount = useSelector((state=>state.transfer.value))
   const notes = useSelector((state=>state.transfer.notes))
   const time = useSelector((state=>state.transfer.date))
   const token = useSelector((state=>state.auth.token))
-  const navigate = useNavigate()
   const success = useSelector((state=>state.transfer.successmsg))
   const failed = useSelector((state=>state.transfer.errormsg))
-  
+  const recToken = useSelector((state=>state.token.receiverToken))
+  const altToken = 'coWOurJTQsWCCNgLvZrkDu:APA91bEYbVkVNX9o-CMGaGfwGgGFfAcQWcauoIcHldZOitKJdmDGiRap5wxmRWZsPWU_cEK1UMT9fj08C7-mGYBR66lsPvAuwuL0-f8Maja-uU4KVu_BxNVYuT0rZH85X1tgoxLX6TnH'
   const pinRequest = (val) => {
     const pin = val.pin1+val.pin2+val.pin3+val.pin4+val.pin5+val.pin6
     const regExp = /^\d+$/;
@@ -73,13 +77,17 @@ const MyModal = (props) => {
       if (pin.length!==6) {
         window.alert('Pin Should Have 6 Digit')
       }else{
-        dispatch(transfer({token,receiver,amount,notes,time,pin}))
+        const receiverToken = recToken?recToken:altToken
+        const name = data?.first_name + ' ' + data?.last_name
+        const msg = `${name} Send Money To You Rp.${amount}`
+        const request = {time, amount, notes, receiver, pin, receiverToken, msg};
+        dispatch(transfer({token,request}))
       }
     }else{
       window.alert('Input Only Number')
     }
   }
-
+  setTimeout(()=>dispatch(resetMsgTF()), 5 * 1000)
   React.useEffect(()=>{
     if (success) {
       navigate('/statusSuccess')
@@ -95,6 +103,9 @@ const MyModal = (props) => {
         <Modal.Header closeButton>
           <Modal.Title id="modal-pin" className='wrap-title'>
                 Enter Pin to Transfer
+            {failed?(
+              <Alert className="sticky-top text-center" variant="danger">{failed}</Alert>
+            ): null}
           </Modal.Title>
         </Modal.Header>
         <Formik validationSchema={pinSchema} 
@@ -108,12 +119,13 @@ const MyModal = (props) => {
 }
 
 export const TransferPinConfirm = () => {
+  const [show, setShow] =React.useState(false);
+  const dispatch = useDispatch()
   const dataName = useSelector((state=>state.transfer.name))
   const dataPhone = useSelector((state=>state.transfer.phone))
   const dataPhoto = useSelector((state=>state.transfer.photo))
   const dataDate = useSelector((state=>state.transfer.date))
   const data = useSelector((state=>state.profile.value))
-  const [show, setShow] =React.useState(false);
   const amount = useSelector((state=>state.transfer.value))
   const notes = useSelector((state=>state.transfer.notes))
   const balanceleft = data?.balance-amount
@@ -129,7 +141,7 @@ export const TransferPinConfirm = () => {
               <div className="d-flex-column wrap-receiver p-3 my-3">
                 <div className="d-flex justify-content-between align-items-center">
                   <div className="d-flex">
-                    <img src={dataPhoto} className="img-home-prof" alt="samuel"/>
+                    <img src={dataPhoto?dataPhoto:defaultimg} className="img-home-prof" alt="samuel"/>
                     <div className="d-flex-column justify-content-center ms-3">
                       <p className="wrap-name-transfer">{dataName}</p>
                       <p  className="wrap-type">{dataPhone}</p>

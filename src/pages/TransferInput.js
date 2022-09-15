@@ -11,6 +11,7 @@ import * as Yup from 'yup'
 import {useDispatch, useSelector} from 'react-redux'
 import { costumAmount,costumNotes,costumDateTransfer } from '../redux/reducer/transfer'
 import defaultimg from '../assets/images/default.png'
+import { getToken } from '../redux/asyncAction/token'
 
 const amountSchema = Yup.object().shape({
   amount: Yup.number().min(1).required('Required'),
@@ -18,7 +19,6 @@ const amountSchema = Yup.object().shape({
 
 const AuthAmoount = ({errors, handleSubmit, handleChange})=>{
   const profile = useSelector((state=>state.profile.value))
-  const dispatch = useDispatch()
   return(
     <Form noValidate onSubmit={handleSubmit}>
       <Form.Group>
@@ -30,7 +30,7 @@ const AuthAmoount = ({errors, handleSubmit, handleChange})=>{
       </Form.Group>
       <Form.Group className="d-flex w-50 m-auto my-3 my-md-5">
         <span className="auth-form wrap-notes navboard-icons"><FiEdit2/></span>
-        <Form.Control type="text" onChange={(e)=>{dispatch(costumNotes(e.target.value))}} className="text-center wrap-notes" placeholder="Add some notes"/>
+        <Form.Control name='notes' type="text" onChange={handleChange} className="text-center wrap-notes" placeholder="Add some notes"/>
       </Form.Group>
       <div className="d-md-flex justify-content-end">
         <Button className="btn auth-button w-100 my-5" type="submit">Continue</Button>
@@ -43,6 +43,7 @@ export const TransferInput = () => {
   const dataName = useSelector((state=>state.transfer.name))
   const dataPhone = useSelector((state=>state.transfer.phone))
   const dataPhoto = useSelector((state=>state.transfer.photo))
+  const receiver = useSelector((state=>state.transfer.receiver))
   const dataTime = new Date().toISOString()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -50,8 +51,12 @@ export const TransferInput = () => {
     if(val.amount===''){
       window.alert('Input Amount')
     }else{
-      dispatch(costumAmount(val.amount))
+      const amount = val.amount
+      const notes = val.notes
+      dispatch(costumAmount(amount))
+      dispatch(costumNotes(notes))
       dispatch(costumDateTransfer(dataTime))
+      dispatch(getToken(receiver))
       navigate('/pinConfirm')
     }
   }
@@ -80,7 +85,7 @@ export const TransferInput = () => {
                 </div>
               </div>
               <p className="wrap-text">Type the amount you want to transfer and then<br/>press continue to the next steps.</p>
-              <Formik validationSchema={amountSchema} initialValues={{amount:''}} onSubmit={transferRequest}>
+              <Formik validationSchema={amountSchema} initialValues={{amount:'', notes:''}} onSubmit={transferRequest}>
                 {(props)=><AuthAmoount{...props}/>}
               </Formik>
             </div>

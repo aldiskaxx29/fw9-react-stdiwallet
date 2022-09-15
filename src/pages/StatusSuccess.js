@@ -12,14 +12,14 @@ import { resetAmount,resetNotes } from '../redux/reducer/transfer'
 
 export const StatusSuccess = () => {
   const dispatch = useDispatch()
+  const data = useSelector((state=>state.profile.value))
   const dataName = useSelector((state=>state.transfer.name))
   const dataPhone = useSelector((state=>state.transfer.phone))
   const dataPhoto = useSelector((state=>state.transfer.photo))
   const dataDate = useSelector((state=>state.transfer.date))
-  const balance = useSelector((state=>state.profile.balance))
   const amount = useSelector((state=>state.transfer.value))
   const notes = useSelector((state=>state.transfer.notes))
-  const balanceleft = balance-amount
+  const balanceleft = data?.balance
   return (
     <>
       <Helmet>

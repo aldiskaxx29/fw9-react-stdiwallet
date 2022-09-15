@@ -9,6 +9,7 @@ import addNumber from './addNumber'
 import counter from './counter'
 import {persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import token from './token'
 
 const authPersistConfig = {
   key: 'auth',
@@ -20,9 +21,16 @@ const transferPersistConfig = {
   storage
 }
 
+const tokenDeviceConfig = {
+  key: 'deviceToken',
+  storage
+}
+
 const persistanceAuthReducer = persistReducer(authPersistConfig,auth)
 
 const persistanceTransferReducer = persistReducer(transferPersistConfig,transfer)
+
+const persistanceDiviceTokenReducer = persistReducer(tokenDeviceConfig,token)
 
 const reducer = combineReducers({
   phone,
@@ -32,7 +40,8 @@ const reducer = combineReducers({
   getAllProfile,
   transfer: persistanceTransferReducer,
   addNumber,
-  counter
+  counter,
+  token: persistanceDiviceTokenReducer
 })
 
 export default reducer

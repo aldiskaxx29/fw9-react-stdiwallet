@@ -23,11 +23,15 @@ export const transferSlice = createSlice({
     resetAmount: (state)=>{
       state.value = 0
     },
+    resetMsgTF: (state)=>{
+      state.errormsg = ''
+      state.successmsg = ''
+    },
     costumNotes: (state,action)=>{
-      state.value = action.payload
+      state.notes = action.payload
     },
     resetNotes: (state)=>{
-      state.value = '-'
+      state.notes = '-'
     },
     costumNameTransfer: (state,action)=>{
       state.name = action.payload
@@ -57,12 +61,12 @@ export const transferSlice = createSlice({
       state.successmsg=null
     })
     build.addCase(transfer.fulfilled,(state,action)=>{
-      state.errormsg=action.payload?.errormsg
-      state.successmsg=action.payload?.successmsg
+      state.errormsg=action.payload?.error
+      state.successmsg=action.payload?.massage
     })
   }
 })
 
-export const {costumAmount,costumNotes,resetNotes,resetAmount,costumPhotoTransfer,costumNameTransfer,costumPhoneTransfer,costumDateTransfer,costumReceiver,resetTransfer} = transferSlice.actions
+export const {resetMsgTF,costumAmount,costumNotes,resetNotes,resetAmount,costumPhotoTransfer,costumNameTransfer,costumPhoneTransfer,costumDateTransfer,costumReceiver,resetTransfer} = transferSlice.actions
 
 export default transferSlice.reducer

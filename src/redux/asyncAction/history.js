@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import http from '../../helpers/http';
 
 export const showHistory = createAsyncThunk('history/showHistory',async({token,pages})=>{

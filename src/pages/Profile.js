@@ -11,7 +11,7 @@ import { editprofile, showProfile } from '../redux/asyncAction/profile'
 import defaultimg from '../assets/images/default.png'
 import { Formik } from 'formik'
 
-const FormUpdate=({erros,handleSubmit,handleChange,handleFileSelect})=>{
+const FormUpdate=({erros,handleSubmit,handleChange,handleFileSelect,setPhoto})=>{
   const data = useSelector((state=>state.profile.value))
   return(
     <>
@@ -26,7 +26,7 @@ const FormUpdate=({erros,handleSubmit,handleChange,handleFileSelect})=>{
               <Form.Control name='last_name' onChange={handleChange} placeholder={data?.last_name}/>
             </div>
             <div className="d-flex auth-border-pin">
-              <Form.Control type='file' name='profile_photo' onChange={handleFileSelect}/>
+              <Form.Control type='file' name='profile_photo' onChange={(event)=>{setPhoto(event.currentTarget.files[0])}}/>
             </div>
           </div>
           <br/>
@@ -40,6 +40,7 @@ const FormUpdate=({erros,handleSubmit,handleChange,handleFileSelect})=>{
 }
 
 const MyModal = (props) => {
+  const [photo,setPhoto] = React.useState('')
   const data = useSelector((state=>state.profile.value))
   const token = useSelector((state=>state.auth.token))
   const firstname = data?.first_name?.split(' ').map(str =>str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()).join(' ')
@@ -48,8 +49,7 @@ const MyModal = (props) => {
   const setProfile = (val) =>{
     const first_name = val.first_name
     const last_name = val.last_name
-    const photo = val.profile_photo
-    console.log(photo);
+    console.log(val);
     dispatch(editprofile({token,first_name,last_name,photo}))
   }
   return(
@@ -61,7 +61,7 @@ const MyModal = (props) => {
           </Modal.Title>
         </Modal.Header>
         <Formik onSubmit={setProfile} initialValues={{first_name:{firstname},last_name:{lastname},profile_photo:''}}>
-          {(props)=><FormUpdate{...props}/>}
+          {(props)=><FormUpdate{...props} setPhoto={setPhoto} />}
         </Formik>
       </Modal>    
     </>

@@ -8,7 +8,6 @@ import { showProfile } from '../redux/asyncAction/profile';
 
 const NavBoard = () => {
   const token = useSelector((state=>state.auth.token))
-  console.log(token);
   const navigate= useNavigate()
   const dispatch = useDispatch()
   const logOut =()=>{
