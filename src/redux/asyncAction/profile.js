@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import qs from 'qs'
 import http from '../../helpers/http';
 
 export const showProfile = createAsyncThunk('profile/showProfile',async(token)=>{
@@ -26,3 +27,20 @@ export const editprofile = createAsyncThunk('profile/editprofile',async({token,f
     return results
   }
 })
+
+export const addNumber = createAsyncThunk(
+  '/profile/AddNumber',
+  async ({token, request}) => {
+    const results = {};
+    try {
+      const send = qs.stringify(request);
+      const {data} = await http(token).patch('/number', send);
+      results.data = data.result;
+      results.massage = data.massage;
+      return results;
+    } catch (e) {
+      results.error=e.response.data.result
+      return e;
+    }
+  },
+);

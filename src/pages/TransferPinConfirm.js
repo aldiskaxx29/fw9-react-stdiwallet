@@ -49,7 +49,6 @@ const AuthPin = ({errors,handleSubmit,handleChange}) => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          {/* <Button name='button-cancel' onClick={()=>navigate('/statusFailed')} className='auth-button' type='submit'>Cancel</Button> */}
           <Button name='button-confirm' className='auth-button' type='submit'>Confirm</Button>
         </Modal.Footer>
       </Form>

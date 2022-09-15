@@ -13,9 +13,6 @@ export const ManagePhone = () => {
   const data = useSelector((state=>state.profile.value))
   const token = useSelector((state=>state.auth.token))
   const dispatch = useDispatch()
-  const dataPhone = data?.result?.map((val)=>{
-    return val.num_phone
-  })
   React.useEffect(()=>{
     dispatch(showProfile(token))
   },[])
@@ -38,10 +35,10 @@ export const ManagePhone = () => {
                   <div className="d-flex">
                     <div className="d-flex-column justify-content-center ms-1">
                       <p  className="wrap-text mb-2">Phone Number</p>
-                      <p className="wrap-name-confirm">{dataPhone}</p>
+                      <p className="wrap-name-confirm">{data?.num_phone||'-'}</p>
                     </div>
                   </div>
-                  {dataPhone?<Link className="wrap-text" to='/addNumber'>
+                  {data?.num_phone?<Link className="wrap-text" to='/addNumber'>
                     <FiTrash />
                   </Link>:<Link className="wrap-text" to='/addNumber'>
                     <FiPlus />

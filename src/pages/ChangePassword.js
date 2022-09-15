@@ -1,7 +1,7 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
 import { Footer } from '../component/Footer'
-import { Row,Col, Form, Button } from 'react-bootstrap'
+import { Row,Col, Form, Button, Alert } from 'react-bootstrap'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
 import { FiLock } from 'react-icons/fi'
@@ -10,6 +10,7 @@ import * as Yup from 'yup'
 import { Helmet } from 'react-helmet'
 import { useDispatch,useSelector } from 'react-redux'
 import { changePassword } from '../redux/asyncAction/changePassword'
+import { resetMsgProf, showProfile } from '../redux/reducer/profile'
 
 const passwordSchema = Yup.object().shape({
   currentpassword:Yup.string().required('Required'),
@@ -57,20 +58,30 @@ const AuthPassword = ({errors,handleChange,handleSubmit}) =>{
 }
 
 export const ChangePassword = () => {
-  const dispatch = useDispatch
-  const navigate = useNavigate()
+  const [warning,setWarning] = React.useState('')
+  const dispatch = useDispatch()
   const token = useSelector((state=>state.auth.token))
+  const errormsg = useSelector(state=>state.profile.errormsg)
+  const successmsg = useSelector(state=>state.profile.successmsg)
   const changePasswordRequest = (val) => {
-    const currentpassword = val.currentpassword
-    const password = val.password
-    const newpassword = val.newpassword
+    const request = {
+      oldPass: val.currentpassword,
+      newPass: val.password,
+      confirmPass: val.newpassword,
+    };
     if(val.newpassword!==val.password){
-      window.alert('New Password Not Match')
+      setWarning('Confirm Password Not Match')
+      setTimeout(()=>setWarning(''),5 * 1000)
     }else{
-      dispatch(changePassword({token,currentpassword,password,newpassword}))
-      navigate('/profile')
+      dispatch(changePassword({token,request}))
     }
   }
+  setTimeout(()=>dispatch(resetMsgProf()),5 * 1000)
+  React.useEffect(()=>{
+    if(successmsg){
+      showProfile(token)
+    }
+  },[successmsg])
   return (
     <>
       <Helmet>
@@ -85,6 +96,12 @@ export const ChangePassword = () => {
             <div className='wrap-right-el d-flex-column px-3 px-md-4 pt-3 pt-md-4'>
               <h1 className="wrap-title mb-3">Change Password</h1>
               <p className='wrap-text'>You must enter your current password and then type your new password twice.</p>
+              {errormsg||warning?(
+                <Alert className="sticky-top text-center" variant="danger">{errormsg||warning}</Alert>
+              ): null}
+              {successmsg?(
+                <Alert className="sticky-top text-center" variant="success">{successmsg}</Alert>
+              ): null}
               <Formik validationSchema={passwordSchema} initialValues={{currentpassword:'',password:'',newpassword:''}} onSubmit={changePasswordRequest}>
                 {(props)=><AuthPassword{...props}/>}
               </Formik>

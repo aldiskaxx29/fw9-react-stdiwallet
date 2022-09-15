@@ -21,3 +21,21 @@ export const transfer = createAsyncThunk(
     }
   },
 );
+
+export const topUp = createAsyncThunk(
+  '/trans/topup',
+  async ({token, request}) => {
+    const results = {};
+    try {
+      const send = qs.stringify(request);
+      const {data} = await http(token).patch('/topUp', send);
+      console.log(data);
+      results.data = data.result;
+      results.massage = data.massage;
+      return results;
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
+  },
+);

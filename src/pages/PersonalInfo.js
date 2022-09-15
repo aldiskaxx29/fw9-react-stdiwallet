@@ -11,7 +11,7 @@ import { showProfile } from '../redux/asyncAction/profile'
 export const PersonalInfo = () => {
   const data = useSelector((state=>state.profile.value))
   const token = useSelector((state=>state.auth.token))
-  const email = useSelector((state=>state.profile.email))
+  const email = useSelector((state=>state.auth.email))
   const firstname = data?.first_name?.split(' ').map(str =>str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()).join(' ')
   const lastname = data?.last_name?.split(' ').map(str =>str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()).join(' ')
   const phone = data?.num_phone?.split('')

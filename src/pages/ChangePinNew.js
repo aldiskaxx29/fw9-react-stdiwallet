@@ -1,12 +1,15 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
 import { Footer } from '../component/Footer'
-import { Row,Col, Form, Button } from 'react-bootstrap'
+import { Row,Col, Form, Button, Alert } from 'react-bootstrap'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
 import { Helmet } from 'react-helmet'
 import { Formik } from 'formik';
 import * as Yup from 'yup'
+import { useDispatch, useSelector } from 'react-redux'
+import { changePin } from '../redux/asyncAction/changePassword'
+import { resetMsgProf } from '../redux/reducer/profile'
 
 const pinSchema = Yup.object().shape({
   pin1: Yup.string().min(1).max(1).required(),
@@ -45,7 +48,8 @@ const AuthPin = ({errors,handleSubmit,handleChange}) => {
             </div>
           </div>
         </div>
-        <span hidden={!notify} className='text-danger text-center'>Input Pin</span>
+        <br/>
+        <Alert hidden={!notify} className="sticky-top text-center" variant="danger">Fill All Column With Number</Alert>
         <div className="text-center wrap-button my-5">
           <Button className="button-insert" type='submit'>Continue</Button>
         </div>
@@ -55,20 +59,38 @@ const AuthPin = ({errors,handleSubmit,handleChange}) => {
 }
 
 export const ChangePinNew = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [warning,setWarning] = React.useState('')
+  const token = useSelector((state=>state.auth.token))
+  const oldPin = useSelector(state=>state.profile?.oldPin)
+  const successmsg = useSelector((state=>state.profile.successmsg))
+  const errormsg = useSelector((state=>state.profile.errormsg))
   const pinRequest = (val) => {
-    const pin = val.pin1+val.pin2+val.pin3+val.pin4+val.pin5+val.pin6
+    const newPin = val.pin1+val.pin2+val.pin3+val.pin4+val.pin5+val.pin6
     const regExp = /^\d+$/;
-    if(regExp.test(pin)){
-      if (pin.length!==6) {
-        window.alert('Pin Should Have 6 Digit')
+    if(regExp.test(newPin)){
+      if (newPin.length!==6) {
+        setWarning('Pin Should Have 6 Digit')
+        setTimeout(()=>setWarning(''),5 * 1000)
       }else{
-        navigate('/personalInfo')
+        const request = {oldPin,newPin}
+        dispatch(changePin({token,request}))
       }
     }else{
-      window.alert('Input Only Number')
+      setWarning('Input Only Number')
+      setTimeout(()=>setWarning(''),5 * 1000)
     }
   }
+  setTimeout(()=>dispatch(resetMsgProf()),5 * 1000)
+  if(errormsg){
+    setTimeout(()=>navigate('/changePin'),6 * 1000)
+  }
+  React.useEffect(()=>{
+    if (!oldPin){
+      navigate('/changePin')
+    }
+  },[successmsg,errormsg])
   return (
     <>
       <Helmet>
@@ -83,6 +105,12 @@ export const ChangePinNew = () => {
             <div className='wrap-right-el d-flex-column px-3 px-md-4 pt-3 pt-md-4'>
               <h1 className="wrap-title mb-3">Change Pin</h1>
               <p className='wrap-text'>Type your new 6 digits security PIN to use in Zwallet.</p>
+              {errormsg||warning?(
+                <Alert className="sticky-top text-center" variant="danger">{errormsg||warning}</Alert>
+              ): null}
+              {successmsg?(
+                <Alert className="sticky-top text-center" variant="success">{successmsg}</Alert>
+              ): null}
               <Formik validationSchema={pinSchema}
                 initialValues={{pin1:'',pin2:'',pin3:'',pin4:'',pin5:'',pin6:''}}
                 onSubmit={pinRequest}>

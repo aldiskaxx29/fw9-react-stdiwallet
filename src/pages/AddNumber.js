@@ -1,7 +1,6 @@
 import React from 'react'
-import {useNavigate} from 'react-router-dom'
 import { Footer } from '../component/Footer'
-import { Row,Col, Form, Button } from 'react-bootstrap'
+import { Row,Col, Form, Button, Alert } from 'react-bootstrap'
 import Header from '../component/Headers'
 import NavBoard from '../component/NavBoard'
 import { FiPhone } from 'react-icons/fi'
@@ -9,7 +8,8 @@ import { Helmet } from 'react-helmet'
 import { Formik } from 'formik';
 import * as Yup from 'yup'
 import {useDispatch, useSelector} from 'react-redux'
-import { addPhone } from '../redux/asyncAction/phone'
+import { addNumber, showProfile } from '../redux/asyncAction/profile'
+import { resetMsgProf } from '../redux/reducer/profile'
 
 const phoneSchema = Yup.object().shape({
   phone: Yup.string().min(11).max(15).required('You Must Input Indonesian Phone(+62)')
@@ -35,26 +35,26 @@ const AuthPhone = ({errors,handleSubmit,handleChange}) => {
 }
 
 export const AddNumber = () => {
-  const navigate = useNavigate()
   const regExp = /[a-zA-Z]/g;
   const dispatch = useDispatch()
   const token = useSelector((state=>state.auth.token))
-  const successmsg = useSelector((state=>state.addNumber.successmsg))
+  const successmsg = useSelector((state=>state.profile?.successmsg))
+  const errormsg = useSelector((state=>state.profile?.errormsg))
   const reqPhone = (val) => {
     console.log(val.phone[0]===0);
     if (regExp.test(val.phone)) {
       window.alert('Input Only Mobile Phone Format')
-    }else if((val.phone[0]==='0'&&val.phone[1]==='8')||val.phone.includes('+62')){
-      dispatch(addPhone({token,num_phone:val.phone}))
-      navigate('/personalInfo')
+    }else if(val.phone.includes('+62')){
+      const request = {num_phone:val.phone}
+      dispatch(addNumber({token,request}))
     }else{
       window.alert('Invalid Format Number')
     }
   }
-
+  setTimeout(()=>dispatch(resetMsgProf()), 5 * 1000)
   React.useState(()=>{
     if (successmsg) {
-      window.alert(successmsg)
+      setTimeout(()=>dispatch(showProfile(token)), 5 * 1000)
     }
   },[successmsg])
   return (
@@ -71,6 +71,12 @@ export const AddNumber = () => {
             <div className='wrap-right-el d-flex-column px-3 px-md-4 pt-3 pt-md-4'>
               <h1 className="wrap-title mb-3">Add Phone Number</h1>
               <p className='wrap-text'>Add at least one phone number for the transfer<br/>ID so you can start transfering your money to <br/>another user..</p>
+              {errormsg?(
+                <Alert className="sticky-top text-center" variant="danger">{errormsg}</Alert>
+              ): null}
+              {successmsg?(
+                <Alert className="sticky-top text-center" variant="success">{successmsg}</Alert>
+              ): null}
               <Formik validationSchema={phoneSchema} initialValues={{phone:''}} onSubmit={reqPhone}>
                 {(props)=><AuthPhone{...props}/>}
               </Formik>

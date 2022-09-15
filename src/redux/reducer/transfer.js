@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { transfer } from '../asyncAction/transfer'
+import { topUp, transfer } from '../asyncAction/transfer'
 
 const initialState = {
   value: 0,
@@ -64,6 +64,13 @@ export const transferSlice = createSlice({
       state.errormsg=action.payload?.error
       state.successmsg=action.payload?.massage
     })
+    build.addCase(topUp.pending, state => {
+      state.errormsg = null;
+      state.successmsg = null;
+    });
+    build.addCase(topUp.fulfilled, (state, action) => {
+      state.successmsg = action.payload?.massage;
+    });
   }
 })
 

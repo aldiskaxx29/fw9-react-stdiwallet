@@ -9,7 +9,7 @@ import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { login } from '../redux/asyncAction/auth';
 import { loginemail } from '../redux/reducer/profile';
-import { resetMsg } from '../redux/reducer/auth';
+import { costumeEmail, resetMsg } from '../redux/reducer/auth';
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email address format').required('Required'),
@@ -17,7 +17,6 @@ const loginSchema = Yup.object().shape({
 })
 
 const AuthLogin = ({errors,handleSubmit,handleChange}) =>{
-  const dispatch = useDispatch()
   let lock = true
   lock = errors.email!==undefined||errors.password!==undefined
   return(
@@ -63,6 +62,7 @@ const Login = () => {
       window.alert('Write Your Email and Password')
     }else{
       dispatch(loginemail(val.email))
+      dispatch(costumeEmail(val.email))
       dispatch(login(request))
     }
   }

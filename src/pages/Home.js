@@ -21,13 +21,13 @@ const DataDynamic = ({name,transaction,amount,receiver,namerec,photorec,photo}) 
         <div className="d-flex justify-content-center">
           {idLogin===receiver?
             <>
-              <img src={photo?photo:defaultimg} className="img-home-prof img-fluid" alt="samuel"/>
+              <img src={name.includes('null')?photorec:photo?photo:defaultimg} className="img-home-prof" alt="samuel"/>
               <div className="d-flex-column justify-content-center mx-3">
-                <p className="wrap-name-transfer">{name||data.first_name + data.last_name}</p>
+                <p className="wrap-name-transfer">{name.includes('null')?data?.first_name + data?.last_name:name}</p>
                 <p  className="wrap-type">{transaction}</p>
               </div>
             </>:<>
-              <img src={photorec?photorec:defaultimg} className="img-home-prof img-fluid" alt="samuel"/>
+              <img src={photorec?photorec:defaultimg} className="img-home-prof" alt="samuel"/>
               <div className="d-flex-column justify-content-center mx-3">
                 <p className="wrap-name-transfer">{namerec}</p>
                 <p  className="wrap-type">{transaction}</p>
