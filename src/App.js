@@ -13,7 +13,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import ForgotPasswordInsert from './pages/ForgotPasswordInsert';
 import History from './pages/History';
 import { Home } from './pages/Home';
-import Landingpage from './pages/Landingpage';
+import IndexPage from './pages/IndexPage';
 import  Login  from './pages/Login';
 import { ManagePhone } from './pages/ManagePhone';
 import { PersonalInfo } from './pages/PersonalInfo';
@@ -30,7 +30,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<PublicRoute> <Landingpage/></PublicRoute>}/>
+        <Route path="/" element={<PublicRoute> <IndexPage/></PublicRoute>}/>
         <Route path="login" element={<PublicRoute><Login/></PublicRoute>}/>
         <Route path="signUp" element={<PublicRoute><SignUp/></PublicRoute>}/>
         <Route path="createPin" element={<PublicRoute><CreatePin/></PublicRoute>}/>

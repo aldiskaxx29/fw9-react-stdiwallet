@@ -12,7 +12,7 @@ import{FiArrowLeft,FiArrowRight} from 'react-icons/fi';
 import '../assets/css/lpV2.css';
 import { Helmet } from 'react-helmet'
 
-const Landingpage = () => {
+const IndexPage = () => {
   return (
     <>
       <Helmet>
@@ -121,4 +121,4 @@ const Landingpage = () => {
   )
 }
 
-export default Landingpage
+export default IndexPage

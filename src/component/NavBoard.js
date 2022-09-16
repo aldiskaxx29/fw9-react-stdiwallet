@@ -11,9 +11,7 @@ const NavBoard = () => {
   const navigate= useNavigate()
   const dispatch = useDispatch()
   const logOut =()=>{
-    dispatch(logout(()=>{
-      navigate('/login')
-    }))
+    dispatch(logout())
   }
   React.useEffect(() => {
     if(token){
