@@ -12,6 +12,9 @@ This app is build using Reactjs for frame work and Bootstrap as styling
 2. Node Js
 3. Backend URL [here](https://github.com/ramdhanstdi/fw9-backend)
 
+## Need To Know 
+1. [Axios](https://axios-http.com/docs/intro)
+2. [React-Redux](https://react-redux.js.org/)
 ## Run App
 1. You can clone this repositories
 2. Type `yarn install` on your terminal 
