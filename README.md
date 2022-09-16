@@ -1,3 +1,9 @@
+## Preview
+<img src="./screenshoot/localhost_3000_home.png" width="auto" height="150" alt="Home">
+<img src="./screenshoot/localhost_3000_profile (1).png" width="auto" height="150" alt="Home">
+<img src="./screenshoot/localhost_3000_profile (3).png" width="auto" height="150" alt="Home">
+<img src="./screenshoot/localhost_3000_profile.png" width="auto" height="150" alt="Home">
+
 # STD iWallet
 
 This is Web version of STD iWallet app for payment. <br/>
