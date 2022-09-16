@@ -9,6 +9,7 @@ import { FiDownload, FiShare2 } from 'react-icons/fi'
 import { Helmet } from 'react-helmet'
 import {useSelector, useDispatch} from 'react-redux'
 import { resetAmount,resetNotes } from '../redux/reducer/transfer'
+import defaultimg from '../assets/images/default.png'
 
 export const StatusSuccess = () => {
   const dispatch = useDispatch()
@@ -80,7 +81,7 @@ export const StatusSuccess = () => {
               <div className="d-flex-column wrap-receiver p-3 my-3">
                 <div className="d-flex justify-content-between align-items-center">
                   <div className="d-flex">
-                    <img src={dataPhoto} className="img-home-prof" alt="samuel"/>
+                    <img src={dataPhoto||defaultimg} className="img-home-prof" alt="samuel"/>
                     <div className="d-flex-column justify-content-center ms-3">
                       <p className="wrap-name-transfer">{dataName}</p>
                       <p  className="wrap-type">{dataPhone}</p>

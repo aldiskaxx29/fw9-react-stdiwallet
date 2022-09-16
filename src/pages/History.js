@@ -19,13 +19,13 @@ class DataDynamic extends React.Component {
             <div className="d-flex">
               {this.props.loginUser===this.props.receiver?
                 <>
-                  <img src={this.props.photo?this.props.photo:defaultimg} className="img-home-prof img-fluid" alt="samuel"/>
+                  <img src={this.props.photo?this.props.photo:defaultimg} className="img-home-prof" alt="samuel"/>
                   <div className="d-flex-column justify-content-center mx-3">
                     <p className="wrap-name-transfer">{this.props.name.includes('null') ? this.props.namerec : this.props.name}</p>
                     <p  className="wrap-type">{this.props.transaction}</p>
                   </div>
                 </>:<>
-                  <img src={this.props.photorec?this.props.photorec:defaultimg} className="img-home-prof img-fluid" alt="samuel"/>
+                  <img src={this.props.photorec?this.props.photorec:defaultimg} className="img-home-prof" alt="samuel"/>
                   <div className="d-flex-column justify-content-center mx-3">
                     <p className="wrap-name-transfer">{this.props.namerec}</p>
                     <p  className="wrap-type">{this.props.transaction}</p>
