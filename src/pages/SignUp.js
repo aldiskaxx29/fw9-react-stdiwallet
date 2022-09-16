@@ -8,7 +8,7 @@ import * as Yup from 'yup'
 import { Helmet } from 'react-helmet';
 import { useSelector,useDispatch } from 'react-redux';
 import { register } from '../redux/asyncAction/auth';
-import { costumeEmail, deleteErrorAuth } from '../redux/reducer/auth';
+import { costumeEmail} from '../redux/reducer/auth';
 
 const signupSchema = Yup.object().shape({
   username: Yup.string().min(5).required('Required'),
